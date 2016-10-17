@@ -1,0 +1,251 @@
+---
+name: kde-frameworks-5
+version: '5.26'
+summary: KDE Frameworks 5
+description: KDE Frameworks are addons and useful extensions to Qt
+confinement: devmode
+grade: devel
+slots:
+    kde-frameworks-5-slot:
+        content: kde-frameworks-5-all
+        interface: content
+        read:
+        - slash
+parts:
+    kf5:
+        after: []
+        plugin: nil
+        build-packages: []
+        stage-packages:
+        - extra-cmake-modules
+        - libkf5coreaddons5
+        - libkf5coreaddons-data
+        - libkf5auth5
+        - libkf5auth-data
+        - libkf5configgui5
+        - libkf5configcore5
+        - libkf5config-data
+        - libkf5config-bin
+        - libkf5widgetsaddons5
+        - libkf5widgetsaddons-data
+        - libkf5completion5
+        - libkf5completion-data
+        - libkf5windowsystem5
+        - libkf5windowsystem-data
+        - libkf5crash5
+        - libkf5archive5
+        - libkf5i18n5
+        - libkf5i18n-data
+        - libkf5filemetadata3
+        - libkf5filemetadata-data
+        - libkf5filemetadata-bin
+        - libkf5jobwidgets5
+        - libkf5jobwidgets-data
+        - libkf5pty5
+        - libkf5pty-data
+        - libkf5unitconversion5
+        - libkf5unitconversion-data
+        - libkf5codecs5
+        - libkf5codecs-data
+        - libkf5notifications5
+        - libkf5notifications-data
+        - kpackagetool5
+        - libkf5package5
+        - libkf5package-data
+        - libkf5guiaddons5
+        - libkf5configwidgets5
+        - libkf5configwidgets-data
+        - libkf5itemviews5
+        - libkf5itemviews-data
+        - libkf5iconthemes-bin
+        - libkf5iconthemes5
+        - libkf5iconthemes-data
+        - libkf5attica5
+        - libkf5dbusaddons5
+        - libkf5dbusaddons-data
+        - libkf5dbusaddons-bin
+        - libkf5service5
+        - libkf5service-data
+        - libkf5service-bin
+        - libkf5globalaccel5
+        - libkf5globalaccelprivate5
+        - libkf5globalaccel-bin
+        - libkf5globalaccel-data
+        - libkf5sonnetcore5
+        - libkf5sonnetui5
+        - libkf5sonnet5-data
+        - sonnet-plugins
+        - libkf5textwidgets5
+        - libkf5textwidgets-data
+        - breeze-icon-theme
+        - libkf5xmlgui-bin
+        - libkf5xmlgui-data
+        - libkf5xmlgui5
+        - libkf5bookmarks5
+        - libkf5bookmarks-data
+        - libkf5solid5
+        - libkf5solid5-data
+        - libkf5solid-bin
+        - qtdeclarative5-kf5solid
+        - qml-module-org-kde-solid
+        - libkf5wallet-bin
+        - libkf5wallet5
+        - libkf5wallet-data
+        - libkwalletbackend5-5
+        - kio
+        - libkf5kiocore5
+        - libkf5kiofilewidgets5
+        - libkf5kiontlm5
+        - libkf5kiowidgets5
+        - kpackagelauncherqml
+        - libkf5declarative5
+        - libkf5declarative-data
+        - qtdeclarative5-kf5declarative
+        - qml-module-org-kde-draganddrop
+        - qml-module-org-kde-kcoreaddons
+        - qml-module-org-kde-kwindowsystem
+        - qml-module-org-kde-kquickcontrols
+        - qml-module-org-kde-kquickcontrolsaddons
+        - qml-module-org-kde-kio
+        - libkf5quickaddons5
+        - libkf5calendarevents5
+        - libkf5kcmutils5
+        - libkf5kcmutils-data
+        - libkf5plotting5
+        - libkf5parts-plugins
+        - libkf5parts-data
+        - libkf5parts5
+        - libkf5webkit5
+        - libkf5emoticons-bin
+        - libkf5emoticons-data
+        - libkf5emoticons5
+        - libkf5newstuff5
+        - libkf5newstuff-data
+        - kinit
+        - libkf5notifyconfig5
+        - libkf5notifyconfig-data
+        - kded5
+        - libkf5su-bin
+        - libkf5su5
+        - libkf5su-data
+        - libkf5texteditor5
+        - libkf5texteditor5-libjs-underscore
+        - ktexteditor-data
+        - ktexteditor-katepart
+        - libkf5activities5
+        - kactivities
+        - qml-module-org-kde-activities
+        - qml-module-org-kde-extensionplugin
+        - libkf5activitiesstats1
+        - libkf5idletime5
+        - libkf5itemmodels5
+        - libkf5threadweaver5
+        - plasma-framework
+        - libkf5plasmaquick5
+        - libkf5plasma5
+        - libkf5xmlrpcclient-data
+        - libkf5xmlrpcclient5
+        - libkf5people-data
+        - libkf5peoplebackend5
+        - libkf5peoplewidgets5
+        - qml-module-org-kde-people
+        - libkf5people5
+        - frameworkintegration
+        - libkf5style5
+        - qml-module-org-kde-runnermodel
+        - libkf5runner5
+        - libkf5waylandclient5
+        - libkf5waylandserver5
+        - kwayland-data
+        - libkf5balooengine5
+        - baloo-kf5
+        - libkf5baloo5
+        - baloo
+        filesets:
+            exclusion:
+            - "-slash/usr/lib/*/cmake/*"
+            - "-slash/usr/include/*"
+            - "-slash/usr/share/ECM/*"
+            - "-slash/usr/share/doc/*"
+            - "-slash/usr/share/man/*"
+            - "-slash/usr/share/icons/breeze-dark*"
+            - "-usr/*"
+        snap:
+        - "$exclusion"
+        organize:
+            etc/*: slash/etc/
+            usr/*: slash/usr/
+    breeze:
+        after:
+        - kf5
+        plugin: cmake
+        build-packages:
+        - pkg-config
+        - libx11-dev
+        - extra-cmake-modules
+        - qtbase5-dev
+        - libkf5config-dev
+        - libkf5configwidgets-dev
+        - libkf5windowsystem-dev
+        - libkf5i18n-dev
+        - libkf5coreaddons-dev
+        - libkf5guiaddons-dev
+        - libqt5x11extras5-dev
+        - libkf5style-dev
+        - libkf5kcmutils-dev
+        - kwayland-dev
+        stage-packages: []
+        filesets:
+            exclusion:
+            - "-slash/usr/lib/*/cmake/*"
+            - "-slash/usr/include/*"
+            - "-slash/usr/share/ECM/*"
+            - "-slash/usr/share/doc/*"
+            - "-slash/usr/share/man/*"
+            - "-slash/usr/share/icons/breeze-dark*"
+            - "-usr/*"
+        snap:
+        - "$exclusion"
+        organize:
+            etc/*: slash/etc/
+            usr/*: slash/usr/
+        configflags:
+        - "-DKDE_INSTALL_USE_QT_SYS_PATHS=ON"
+        - "-DCMAKE_INSTALL_PREFIX=/slash/usr"
+        - "-DCMAKE_BUILD_TYPE=Debug"
+        - "-DENABLE_TESTING=OFF"
+        - "-DBUILD_TESTING=OFF"
+        - "-DKDE_SKIP_TEST_SETTINGS=ON"
+        - "-DWITH_DECORATIONS=OFF"
+        source: http://download.kde.org/stable/plasma/5.7.5/breeze-5.7.5.tar.xz
+    plasma-integration:
+        after:
+        - kf5
+        plugin: cmake
+        build-packages:
+        - libqt5x11extras5-dev
+        - libxcursor-dev
+        - qtbase5-private-dev
+        stage-packages: []
+        filesets:
+            exclusion:
+            - "-slash/usr/lib/*/cmake/*"
+            - "-slash/usr/include/*"
+            - "-slash/usr/share/ECM/*"
+            - "-slash/usr/share/doc/*"
+            - "-slash/usr/share/man/*"
+            - "-slash/usr/share/icons/breeze-dark*"
+            - "-usr/*"
+        snap:
+        - "$exclusion"
+        organize:
+            etc/*: slash/etc/
+            usr/*: slash/usr/
+        configflags:
+        - "-DKDE_INSTALL_USE_QT_SYS_PATHS=ON"
+        - "-DCMAKE_INSTALL_PREFIX=/usr"
+        - "-DCMAKE_BUILD_TYPE=Debug"
+        - "-DENABLE_TESTING=OFF"
+        - "-DBUILD_TESTING=OFF"
+        - "-DKDE_SKIP_TEST_SETTINGS=ON"
+        source: http://download.kde.org/stable/plasma/5.7.5/plasma-integration-5.7.5.tar.xz

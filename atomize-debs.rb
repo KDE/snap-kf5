@@ -108,7 +108,7 @@ class SnapcraftConfig
     # Array<String>
     attr_accessor :snap
     # Hash<String, String>
-    attr_accessor :organize
+    # attr_accessor :organize
 
     attr_writer :source
     attr_writer :configflags
@@ -130,10 +130,10 @@ class SnapcraftConfig
         )
       }
       @snap = %w($exclusion)
-      @organize = {
-        'etc/*' => 'slash/etc/',
-        'usr/*' => 'slash/usr/'
-      }
+      # @organize = {
+      #   'etc/*' => 'slash/etc/',
+      #   'usr/*' => 'slash/usr/'
+      # }
     end
 
     def encode_with(c)
@@ -258,7 +258,7 @@ breeze.build_packages = %w(
 )
 breeze.configflags = %w(
   -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
-  -DCMAKE_INSTALL_PREFIX=/slash/usr
+  -DCMAKE_INSTALL_PREFIX=/usr
   -DCMAKE_BUILD_TYPE=Debug
   -DENABLE_TESTING=OFF
   -DBUILD_TESTING=OFF

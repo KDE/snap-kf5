@@ -270,10 +270,20 @@ breeze.source = 'http://download.kde.org/stable/plasma/5.7.5/breeze-5.7.5.tar.xz
 config.parts['breeze'] = breeze
 
 integration = SnapcraftConfig::Part.new
-integration.after = %w(kf5)
+integration.after = %w(kf5 breeze)
 integration.build_packages = %w(
+               extra-cmake-modules
+               kio-dev
+               kwayland-dev
+               libkf5config-dev
+               libkf5configwidgets-dev
+               libkf5i18n-dev
+               libkf5iconthemes-dev
+               libkf5notifications-dev
+               libkf5widgetsaddons-dev
                libqt5x11extras5-dev
                libxcursor-dev
+               qtbase5-dev
                qtbase5-private-dev
 )
 # extra-cmake-modules

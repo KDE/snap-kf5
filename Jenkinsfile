@@ -20,6 +20,7 @@ node {
     stage ('snapcraft')
     unstash 'snapcraft.yaml'
     sh '~/tooling/kci/contain.rb rake snapcraft'
+    archiveArtifacts 'kde-frameworks-5_*_amd64.snap'
   } finally {
     cleanWorkspace()
   }

@@ -126,8 +126,9 @@ class SnapcraftConfig
           -slash/usr/share/doc/*
           -slash/usr/share/man/*
           -slash/usr/share/icons/breeze-dark*
-          -usr/*
         )
+          # -usr/*
+        # )
       }
       @snap = %w($exclusion)
       # @organize = {

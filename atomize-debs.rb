@@ -85,7 +85,8 @@ class SnapcraftConfig
     def encode_with(c)
       c.tag = nil # Unset the tag to prevent clutter
       self.class.readable_attrs.each do |readable_attrs|
-        c[readable_attrs.to_s.tr('_', '-')] = method(readable_attrs).call
+        next unless data = method(readable_attrs).call
+        c[readable_attrs.to_s.tr('_', '-')] = data
       end
       super(c) if defined?(super)
     end

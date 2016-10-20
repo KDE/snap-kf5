@@ -121,15 +121,13 @@ class SnapcraftConfig
       @stage_packages = []
       @filesets = {
         'exclusion' => %w(
-          -slash/usr/lib/*/cmake/*
-          -slash/usr/include/*
-          -slash/usr/share/ECM/*
-          -slash/usr/share/doc/*
-          -slash/usr/share/man/*
-          -slash/usr/share/icons/breeze-dark*
+          -usr/lib/*/cmake/*
+          -usr/include/*
+          -usr/share/ECM/*
+          -usr/share/doc/*
+          -usr/share/man/*
+          -usr/share/icons/breeze-dark*
         )
-          # -usr/*
-        # )
       }
       @snap = %w($exclusion)
       # @organize = {

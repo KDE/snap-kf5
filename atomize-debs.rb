@@ -237,10 +237,10 @@ part = SnapcraftConfig::Part.new
 part.stage_packages = runs.flatten
 config.parts['kf5'] = part
 
-part = SnapcraftConfig::Part.new
-part.stage_packages = devs.flatten
-part.snap = ['-*']
-config.parts['kf5-dev'] = part
+dev = SnapcraftConfig::Part.new
+dev.stage_packages = devs.flatten
+dev.snap = ['-*']
+config.parts['kf5-dev'] = dev
 
 breeze = SnapcraftConfig::Part.new
 breeze.after = %w(kf5)

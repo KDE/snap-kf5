@@ -38,6 +38,16 @@ class Source
     end
   end
 
+  def all_build_depends
+    @all_build_depends ||= sources.collect do |src|
+      data = `apt-cache showsrc #{src}`.split($/)
+      raise unless $?.success?
+      data = data.find { |x| x.start_with?('Build-Depends:') }
+      data = data.split(' ')[1..-1].join.split(',')
+      data.collect { |x| x.split('(')[0].split('[').join }
+    end.flatten
+  end
+
   MAP = {
     'qt5' => %w(qtbase-opensource-src
                 qtscript-opensource-src
@@ -200,11 +210,13 @@ parts = %w(extra-cmake-modules kcoreaddons) + # kdesupport/polkit-qt-1
            kdesu ktexteditor kactivities kactivities-stats
            kdnssd kidletime kitemmodels threadweaver
            plasma-framework kxmlrpcclient kpeople frameworkintegration
+           kdoctools
+           kdesignerplugin
            krunner kwayland baloo)
            # plasma-integration) # extra integration pulls in breeze pulls in kde4/qt4
 #
 # oxygen-icons5 only one icon set
-# Not Runtime Relevant!
+# Not Runtime Relevant! FIXME: need to seperate these out to only end up in -dev but not content!
 #   extra-cmake-modules
 #   kdesignerplugin
 #   kdoctools

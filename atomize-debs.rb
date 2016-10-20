@@ -109,7 +109,7 @@ class SnapcraftConfig
     # Array<String>
     attr_accessor :snap
     # Hash<String, String>
-    # attr_accessor :organize
+    attr_accessor :organize
 
     attr_writer :source
     attr_writer :configflags

@@ -21,5 +21,6 @@ task :snapcraft do
   sh 'apt install -y snapcraft'
   sh 'snapcraft'
   sh 'tar -cJf kde-frameworks-5-dev_amd64.tar.xz stage'
+  sh 'tar --exclude=._empty -cJf kde-framworks-5-environment_all.tar.xz kde-framworks-5-environment'
 end
 task :snapcraft => :'repo::setup'

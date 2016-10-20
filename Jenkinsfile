@@ -19,7 +19,8 @@ node {
     stage ('snapcraft')
     unstash 'snapcraft.yaml'
     sh '~/tooling/kci/contain.rb rake snapcraft'
-    archiveArtifacts 'kde-frameworks-5_*_amd64.snap kde-frameworks-5-dev_amd64.tar.xz'
+    sh 'ls -lah'
+    archiveArtifacts allowEmptyArchive: true, artifacts: 'kde-frameworks-5_*_amd64.snap kde-frameworks-5-dev_amd64.tar.xz'
   } finally {
     cleanWorkspace()
   }

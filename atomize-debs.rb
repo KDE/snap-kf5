@@ -214,6 +214,7 @@ parts = %w(extra-cmake-modules kcoreaddons) + # kdesupport/polkit-qt-1
            kdesignerplugin
            krunner kwayland baloo)
            # plasma-integration) # extra integration pulls in breeze pulls in kde4/qt4
+           parts << 'qtsvg-opensource-src'
 #
 # oxygen-icons5 only one icon set
 # Not Runtime Relevant! FIXME: need to seperate these out to only end up in -dev but not content!

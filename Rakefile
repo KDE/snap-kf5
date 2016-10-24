@@ -18,11 +18,8 @@ end
 task :generate => :'repo::setup'
 
 task :snapcraft do
-  sh 'ls -lahR kde-frameworks-5-env'
   sh 'apt install -y snapcraft'
   sh 'snapcraft'
   sh 'tar -cJf kde-frameworks-5-dev_amd64.tar.xz stage'
-  sh 'ls -lahR kde-frameworks-5-env'
-  sh 'tar -cJf kde-frameworks-5-env_all.tar.xz kde-frameworks-5-env'
 end
 task :snapcraft => :'repo::setup'

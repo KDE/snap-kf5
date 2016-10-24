@@ -256,10 +256,11 @@ config.parts['kf5'] = part
 dev = SnapcraftConfig::Part.new
 dev.stage_packages = devs.flatten
 dev.snap = ['-*']
+dev.after = %w(kf5)
 config.parts['kf5-dev'] = dev
 
 breeze = SnapcraftConfig::Part.new
-breeze.after = %w(kf5)
+breeze.after = %w(kf5-dev)
 breeze.build_packages = %w(
   pkg-config
   libx11-dev
@@ -291,7 +292,7 @@ breeze.source = 'http://download.kde.org/stable/plasma/5.7.5/breeze-5.7.5.tar.xz
 config.parts['breeze'] = breeze
 
 integration = SnapcraftConfig::Part.new
-integration.after = %w(kf5 breeze)
+integration.after = %w(kf5-dev breeze)
 integration.build_packages = %w(
                extra-cmake-modules
                kio-dev

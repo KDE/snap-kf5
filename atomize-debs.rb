@@ -175,6 +175,8 @@ class SnapcraftConfig
   attr_accessor :grade
   attr_accessor :slots
   attr_accessor :parts
+  attr_accessor :icon
+  attr_accessor :license
 
   def initialize
     @parts = {}
@@ -189,6 +191,8 @@ config.summary = 'KDE Frameworks 5'
 config.description = 'KDE Frameworks are addons and useful extensions to Qt'
 config.confinement = 'strict'
 config.grade = 'devel'
+config.icon = 'assets/icon.png'
+config.license = 'assets/LICENSE'
 
 slot = SnapcraftConfig::Slot.new
 slot.content = 'kde-frameworks-5-all'

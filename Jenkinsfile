@@ -17,7 +17,7 @@ cleanNode {
   archiveArtifacts 'kde-frameworks-5_*_amd64.snap, kde-frameworks-5-dev_amd64.tar.xz'
 }
 
-def cleanNode(label, body) {
+def cleanNode(label = null, body) {
   node(label) {
     deleteDir()
     try {

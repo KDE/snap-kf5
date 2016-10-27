@@ -137,6 +137,7 @@ class SnapcraftConfig
           -usr/share/doc/*
           -usr/share/man/*
           -usr/share/icons/breeze-dark*
+          -usr/share/wallpapers/*
         )
       }
       @snap = %w($exclusion)

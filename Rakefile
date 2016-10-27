@@ -20,6 +20,7 @@ task :generate => :'repo::setup'
 task :snapcraft do
   sh 'apt install -y snapcraft'
   sh 'snapcraft'
+  sh 'ls -lah prime'
   sh 'tar -cJf kde-frameworks-5-dev_amd64.tar.xz stage'
 end
 task :snapcraft => :'repo::setup'

@@ -1,3 +1,4 @@
+require 'json'
 require 'yaml'
 
 class Source

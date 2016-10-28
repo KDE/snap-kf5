@@ -335,6 +335,6 @@ integration.plugin = 'cmake'
 integration.source = 'http://download.kde.org/stable/plasma/5.7.5/plasma-integration-5.7.5.tar.xz'
 config.parts['plasma-integration'] = integration
 
-puts File.write('new', YAML.dump(config, indentation: 4))
+puts File.write('snapcraft.yaml', YAML.dump(config, indentation: 4))
 puts File.write('stage-content.json', JSON.generate(runs))
 puts File.write('stage-dev.json', JSON.generate(runs + devs))

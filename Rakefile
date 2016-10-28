@@ -13,7 +13,6 @@ end
 
 task :generate do
   ruby 'atomize-debs.rb'
-  FileUtils.mv('new', 'snapcraft.yaml')
 end
 task :generate => :'repo::setup'
 

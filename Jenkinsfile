@@ -6,7 +6,7 @@ cleanNode('master') {
   git 'https://github.com/apachelogger/kf5-snap'
   sh '~/tooling/kci/contain.rb rake generate'
   sh "echo '----snapcraft----'; cat snapcraft.yaml; echo '----snapcraft----'"
-  archiveArtifacts 'stage-*.json'
+  archiveArtifacts 'stage-*.json, snapcraft.yaml'
   stash includes: 'Rakefile, snapcraft.yaml, assets/*', name: 'snapcraft'
 }
 

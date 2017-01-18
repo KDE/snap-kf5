@@ -16,6 +16,19 @@ cleanNode {
   sh '~/tooling/kci/contain.rb rake snapcraft'
   sh 'ls -lah'
   archiveArtifacts 'kde-frameworks-5_*_amd64.snap, kde-frameworks-5-dev_amd64.tar.xz'
+  stash name: 'snaps', includes: 'Rakefile, *_amd64.snap'
+}
+
+cleanNode('master') {
+  stage 'snapcraft push'
+  unstash 'snaps'
+  sh 'tree || ls -lahR'
+  // Temporary workspace during pipeline execution can't be accessed via UI, so
+  // this should be save.
+  // Even so we should move to a contain.rb which forward mounts the snapcraft
+  // dir as volume into the container.
+  sh 'cp ~/.config/snapcraft/snapcraft.cfg snapcraft.cfg'
+  sh '~/tooling/kci/contain.rb rake publish'
 }
 
 def cleanNode(label = null, body) {

@@ -22,7 +22,11 @@ def cleanNode(label = null, body) {
   node(label) {
     deleteDir()
     try {
-      body()
+      wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
+        wrap([$class: 'TimestamperBuildWrapper']) {
+          body()
+        }
+      }
     } finally {
       step([$class: 'WsCleanup', cleanWhenFailure: true])
     }

@@ -186,11 +186,11 @@ end
 
 config = SnapcraftConfig.new
 config.name = 'kde-frameworks-5'
-config.version = '5.26'
+config.version = '5.30'
 config.summary = 'KDE Frameworks 5'
 config.description = 'KDE Frameworks are addons and useful extensions to Qt'
 config.confinement = 'strict'
-config.grade = 'devel'
+config.grade = 'stable'
 
 slot = SnapcraftConfig::Slot.new
 slot.content = 'kde-frameworks-5-all'

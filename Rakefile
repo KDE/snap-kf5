@@ -12,6 +12,8 @@ task :'repo::setup' do
 end
 
 task :generate do
+  # Dependency of deb822 parser borrowed from pangea-tooling.
+  sh 'gem install insensitive_hash'
   ruby 'atomize-debs.rb'
 end
 task :generate => :'repo::setup'

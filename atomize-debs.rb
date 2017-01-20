@@ -158,6 +158,8 @@ class SnapcraftConfig
     attr_accessor :filesets
     # Array<String>
     attr_accessor :snap
+    # Array<String>
+    attr_accessor :stage
     # Hash<String, String>
     attr_accessor :organize
 
@@ -174,12 +176,23 @@ class SnapcraftConfig
           -usr/lib/*/cmake/*
           -usr/include/*
           -usr/share/ECM/*
+          -usr/share/xml/docbook/*
           -usr/share/doc/*
           -usr/share/man/*
+          -usr/share/icons/breeze/*.rcc
           -usr/share/icons/breeze-dark*
           -usr/share/wallpapers/*
+          -usr/share/fonts/truetype/freefont/*
         )
       }
+      @stage = %w(
+        -usr/share/doc/*
+        -usr/share/man/*
+        -usr/share/icons/breeze/*.rcc
+        -usr/share/icons/breeze-dark*
+        -usr/share/wallpapers/*
+        -usr/share/fonts/truetype/freefont/*
+      )
       @snap = %w($exclusion)
       # @organize = {
       #   'etc/*' => 'slash/etc/',

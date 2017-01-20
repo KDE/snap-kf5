@@ -174,6 +174,10 @@ class SnapcraftConfig
       @filesets = {
         'exclusion' => %w(
           -usr/lib/*/cmake/*
+          -usr/lib/*/qt5/bin/moc
+          -usr/lib/*/qt5/bin/qmake
+          -usr/lib/*/qt5/bin/rcc
+          -usr/lib/*/qt5/bin/*cpp*
           -usr/include/*
           -usr/share/ECM/*
           -usr/share/xml/docbook/*

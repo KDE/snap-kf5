@@ -39,5 +39,5 @@ PARTS_FILE_MAP.each do |part, file|
   end
   raise "couldn't find packages of #{part}" if pkgs.empty?
   pkgs += JSON.parse(File.read(file))
-  JSON.write(file, pkgs.uniq.compact)
+  File.write(file, JSON.generate(pkgs.uniq.compact))
 end

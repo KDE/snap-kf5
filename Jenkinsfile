@@ -6,8 +6,8 @@ cleanNode('master') {
   git 'https://github.com/apachelogger/kf5-snap'
   sh '~/tooling/kci/contain.rb rake generate'
   sh "echo '----snapcraft----'; cat snapcraft.yaml; echo '----snapcraft----'"
-  archiveArtifacts 'stage-*.json, snapcraft.yaml'
-  stash includes: 'Rakefile, snapcraft.yaml, extend_content.rb, assets/*', name: 'snapcraft'
+  archiveArtifacts 'snapcraft.yaml'
+  stash includes: 'Rakefile, snapcraft.yaml, extend_content.rb, stage-*.json, assets/*', name: 'snapcraft'
 }
 
 cleanNode {
@@ -21,7 +21,7 @@ cleanNode {
     sh '~/tooling/kci/contain.rb chown -R root .'
   }
   sh 'ls -lah'
-  archiveArtifacts 'kde-frameworks-5_*_amd64.snap, kde-frameworks-5-dev_amd64.tar.xz'
+  archiveArtifacts 'stage-*.json, kde-frameworks-5_*_amd64.snap, kde-frameworks-5-dev_amd64.tar.xz'
   stash name: 'snaps', includes: 'Rakefile, *_amd64.snap'
 }
 

@@ -13,7 +13,13 @@ cleanNode('master') {
 cleanNode {
   stage ('snapcraft')
   unstash 'snapcraft'
-  sh '~/tooling/kci/contain.rb rake snapcraft'
+  try {
+    sh '~/tooling/kci/contain.rb rake snapcraft'
+  } finally {
+    // Fix permissions, for some reason breeze' source is chowned to 1000.
+    // That isn't even a legit user though.
+    sh '~/tooling/kci/contain.rb chown -R root .'
+  }
   sh 'ls -lah'
   archiveArtifacts 'kde-frameworks-5_*_amd64.snap, kde-frameworks-5-dev_amd64.tar.xz'
   stash name: 'snaps', includes: 'Rakefile, *_amd64.snap'

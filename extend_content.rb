@@ -25,19 +25,28 @@ require 'json'
 # the part, then expand the existing content lists with the recursive listing.
 # This allows stricter staging in apps as they will know ALL packages in the
 # content share (so long as they came from snapcraft anyway).
+class Content
+  PARTS_FILE_MAP = {
+    'kf5' => 'stage-content.json',
+    'kf5-dev' => 'stage-dev.json'
+  }.freeze
 
-PARTS_FILE_MAP = {
-  'kf5' => 'stage-content.json',
-  'kf5-dev' => 'stage-dev.json'
-}.freeze
-
-PARTS_FILE_MAP.each do |part, file|
-  pkgs = Dir.glob("parts/#{part}/ubuntu/download/*.deb").collect do |debfile|
-    debfile = File.basename(debfile)
-    match = debfile.match(/^(.+)_([^_]+)_([^_]+)\.deb$/) || raise
-    match[1] # Package name
+  def self.packages_for_part(part)
+    Dir.glob("parts/#{part}/ubuntu/download/*.deb").collect do |debfile|
+      debfile = File.basename(debfile)
+      match = debfile.match(/^(.+)_([^_]+)_([^_]+)\.deb$/) || raise
+      match[1] # Package name
+    end
   end
-  raise "couldn't find packages of #{part}" if pkgs.empty?
-  pkgs += JSON.parse(File.read(file))
-  File.write(file, JSON.generate(pkgs.uniq.compact))
+
+  def self.extend
+    PARTS_FILE_MAP.each do |part, file|
+      pkgs = packages_for_part(part)
+      raise "couldn't find packages of #{part}" if pkgs.empty?
+      pkgs += JSON.parse(File.read(file))
+      File.write(file, JSON.generate(pkgs.uniq.compact))
+    end
+  end
 end
+
+Content.extend if __FILE__ == $0

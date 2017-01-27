@@ -25,6 +25,7 @@ task :snapcraft do
   sh 'snapcraft --debug'
   sh 'ls -lah prime'
   sh 'XZ_OPT=-2 tar -cJf kde-frameworks-5-dev_amd64.tar.xz stage'
+  ruby 'extend_content.rb'
 end
 task :snapcraft => :'repo::setup'
 

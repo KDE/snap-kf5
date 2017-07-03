@@ -4,7 +4,7 @@ env.TYPE = 'user'
 cleanNode('master') {
   stage 'generate'
   git 'https://github.com/apachelogger/kf5-snap'
-  sh '~/tooling/kci/contain.rb rake generate'
+  sh '~/tooling/nci/contain.rb rake generate'
   sh "echo '----snapcraft----'; cat snapcraft.yaml; echo '----snapcraft----'"
   archiveArtifacts 'snapcraft.yaml'
   stash includes: 'Rakefile, snapcraft.yaml, extend_content.rb, stage-*.json, assets/*', name: 'snapcraft'
@@ -14,11 +14,11 @@ cleanNode {
   stage ('snapcraft')
   unstash 'snapcraft'
   try {
-    sh '~/tooling/kci/contain.rb rake snapcraft'
+    sh '~/tooling/nci/contain.rb rake snapcraft'
   } finally {
     // Fix permissions, for some reason breeze' source is chowned to 1000.
     // That isn't even a legit user though.
-    sh '~/tooling/kci/contain.rb chown -R root .'
+    sh '~/tooling/nci/contain.rb chown -R root .'
   }
   sh 'ls -lah'
   archiveArtifacts 'stage-*.json, kde-frameworks-5_*_amd64.snap, kde-frameworks-5-dev_amd64.tar.xz'
@@ -34,7 +34,7 @@ cleanNode('master') {
   // Even so we should move to a contain.rb which forward mounts the snapcraft
   // dir as volume into the container.
   sh 'cp ~/.config/snapcraft/snapcraft.cfg snapcraft.cfg'
-  sh '~/tooling/kci/contain.rb rake publish'
+  sh '~/tooling/nci/contain.rb rake publish'
 }
 
 def cleanNode(label = null, body) {

@@ -20,8 +20,9 @@ cleanNode {
     // That isn't even a legit user though.
     sh '~/tooling/nci/contain.rb chown -R root .'
   }
+  sh 'gpg2 --armor --detach-sign -o kde-frameworks-5-dev_amd64.tar.xz.sig kde-frameworks-5-dev_amd64.tar.xz'
   sh 'ls -lah'
-  archiveArtifacts 'stage-*.json, kde-frameworks-5_*_amd64.snap, kde-frameworks-5-dev_amd64.tar.xz'
+  archiveArtifacts 'stage-*.json, kde-frameworks-5_*_amd64.snap, kde-frameworks-5-dev_amd64.tar.xz*'
   stash name: 'snaps', includes: 'Rakefile, *_amd64.snap'
 }
 

@@ -33,6 +33,7 @@ class Content
 
   def self.packages_for_part(part)
     Dir.glob("parts/#{part}/ubuntu/download/*.deb").collect do |debfile|
+      warn debfile
       debfile = File.basename(debfile)
       match = debfile.match(/^(.+)_([^_]+)_([^_]+)\.deb$/) || raise
       match[1] # Package name
@@ -40,6 +41,7 @@ class Content
   end
 
   def self.extend
+    warn 'Extending content files'
     PARTS_FILE_MAP.each do |part, file|
       pkgs = packages_for_part(part)
       raise "couldn't find packages of #{part}" if pkgs.empty?

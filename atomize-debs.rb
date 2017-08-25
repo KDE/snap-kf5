@@ -54,7 +54,11 @@ class Source
 
   def read_upstream_version(dir)
     version = `dpkg-parsechangelog -S version -l #{dir}/debian/changelog`.strip
-    return nil unless $?.success?
+    unless $?.success?
+      warn 'Got error during dpkg-parsechangelog!'
+      warn version
+      return nil
+    end
     version = version.split(':', 2)[-1] # ditch epoch
     version.split('-', 2)[0] # ditch rev
   end

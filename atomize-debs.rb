@@ -3,6 +3,9 @@ require 'tmpdir'
 require 'yaml'
 
 class Source
+  attr_reader :upstream_name
+  attr_reader :upstream_version
+
   def initialize(upstream_name)
     @upstream_name = upstream_name
   end
@@ -49,9 +52,17 @@ class Source
 
   private
 
+  def read_upstream_version(dir)
+    version = `dpkg-parsechangelog -S version -l #{dir}/debian/changelog`.strip
+    return nil unless $?.success?
+    version = version.split(':', 2)[-1] # ditch epoch
+    version.split('-', 2)[0] # ditch rev
+  end
+
   def parse_control(src)
     system("apt-get --download-only source #{src}") || raise
     system('dpkg-source -x *.dsc source') || raise
+    @upstream_version = read_upstream_version('source')
     require_relative 'debian/control'
     control = Debian::Control.new('source')
     control.parse!
@@ -242,7 +253,7 @@ end
 
 config = SnapcraftConfig.new
 config.name = 'kde-frameworks-5'
-config.version = '5.30'
+config.version = 'unknown'
 config.summary = 'KDE Frameworks 5'
 config.description = 'KDE Frameworks are addons and useful extensions to Qt'
 config.confinement = 'strict'
@@ -301,11 +312,12 @@ runs = %w[mesa-utils-extra]
 parts.each_cons(2) do |first_name, second_name|
   # puts "#{second_name} AFTER #{first_name}"
   next unless second_name # first item is nil
-  part = SnapcraftConfig::Part.new
   source = Source.new(second_name)
+  if source.upstream_name == 'extra-cmake-modules'
+    config.version = source.upstream_version
+  end
   devs += source.dev_binaries
   runs += source.runtime_binaries
-  # config.parts[second_name] = part
 end
 
 part = SnapcraftConfig::Part.new

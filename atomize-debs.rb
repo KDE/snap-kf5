@@ -317,11 +317,11 @@ parts.each_cons(2) do |first_name, second_name|
   # puts "#{second_name} AFTER #{first_name}"
   next unless second_name # first item is nil
   source = Source.new(second_name)
+  devs += source.dev_binaries
+  runs += source.runtime_binaries
   if source.upstream_name == 'extra-cmake-modules' && config.version
     config.version = source.upstream_version
   end
-  devs += source.dev_binaries
-  runs += source.runtime_binaries
 end
 
 part = SnapcraftConfig::Part.new

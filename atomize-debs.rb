@@ -295,7 +295,8 @@ parts = [nil] + parts
 # parts += [nil]
 
 devs = []
-runs = []
+# mesa-utils-extra - es2_info useful to debug GL problems.
+runs = %w[mesa-utils-extra]
 
 parts.each_cons(2) do |first_name, second_name|
   # puts "#{second_name} AFTER #{first_name}"

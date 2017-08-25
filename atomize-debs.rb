@@ -346,7 +346,7 @@ breeze.configflags = %w(
   -DWITH_DECORATIONS=OFF
 )
 breeze.plugin = 'cmake'
-breeze.source = 'http://download.kde.org/stable/plasma/5.7.5/breeze-5.7.5.tar.xz'
+breeze.source = 'http://download.kde.org/stable/plasma/5.10.5/breeze-5.10.5.tar.xz'
 config.parts['breeze'] = breeze
 
 portal = SnapcraftConfig::Part.new
@@ -394,7 +394,7 @@ integration.configflags = %w(
   -DKDE_SKIP_TEST_SETTINGS=ON
 )
 integration.plugin = 'cmake'
-integration.source = 'http://download.kde.org/stable/plasma/5.7.5/plasma-integration-5.7.5.tar.xz'
+integration.source = 'http://download.kde.org/stable/plasma/5.10.5/plasma-integration-5.10.5.tar.xz'
 config.parts['plasma-integration'] = integration
 
 puts File.write('snapcraft.yaml', YAML.dump(config, indentation: 4))

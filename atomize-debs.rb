@@ -385,20 +385,6 @@ integration.build_packages = %w(
                qtbase5-dev
                qtbase5-private-dev
 )
-# extra-cmake-modules
-# kio-dev
-# kwayland-dev
-# libkf5config-dev
-# libkf5configwidgets-dev
-# libkf5i18n-dev
-# libkf5iconthemes-dev
-# libkf5notifications-dev
-# libkf5widgetsaddons-dev
-# libqt5x11extras5-dev
-# libxcursor-dev
-# qtbase5-dev
-# qtbase5-private-dev
-
 integration.configflags = %w(
   -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
   -DCMAKE_INSTALL_PREFIX=/usr

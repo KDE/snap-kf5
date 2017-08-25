@@ -349,6 +349,25 @@ breeze.plugin = 'cmake'
 breeze.source = 'http://download.kde.org/stable/plasma/5.7.5/breeze-5.7.5.tar.xz'
 config.parts['breeze'] = breeze
 
+portal = SnapcraftConfig::Part.new
+portal.after = %w[kf5-dev]
+portal.build_packages = %w[
+               extra-cmake-modules
+               qtbase5-dev
+               qtbase5-private-dev
+]
+portal.configflags = %w[
+  -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  -DCMAKE_INSTALL_PREFIX=/usr
+  -DCMAKE_BUILD_TYPE=Release
+  -DENABLE_TESTING=OFF
+  -DBUILD_TESTING=OFF
+  -DKDE_SKIP_TEST_SETTINGS=ON
+]
+portal.plugin = 'cmake'
+portal.source = 'https://anongit.kde.org/flatpak-platform-plugin.git'
+config.parts['xdg-portal-qpa'] = portal
+
 integration = SnapcraftConfig::Part.new
 integration.after = %w(kf5-dev breeze)
 integration.build_packages = %w(

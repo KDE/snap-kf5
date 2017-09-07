@@ -201,6 +201,18 @@ class SnapcraftConfig
           -usr/share/icons/breeze/*.rcc
           -usr/share/wallpapers/*
           -usr/share/fonts/truetype/freefont/*
+          -usr/share/pkgconfig
+          -usr/lib/*/pkgconfig
+          -usr/share/QtCurve
+          -usr/share/kde4
+          -usr/share/bug
+          -usr/share/debhelper
+          -usr/share/lintian
+          -usr/share/menu
+          -usr/bin/*vlc
+          -usr/bin/dh_*
+          -usr/lib/*/*.a
+          -usr/lib/*/*.pri
         )
       }
       @stage = %w(
@@ -325,6 +337,10 @@ parts.each_cons(2) do |first_name, second_name|
     config.version = source.upstream_version
   end
 end
+
+# Do not pull in the GTK stack.
+runs.delete('qt5-gtk-platformtheme')
+devs.delete('qt5-gtk-platformtheme')
 
 part = SnapcraftConfig::Part.new
 part.stage_packages = runs.flatten

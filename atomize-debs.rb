@@ -312,6 +312,9 @@ parts = [nil] + parts
 devs = []
 # mesa-utils-extra - es2_info useful to debug GL problems.
 runs = %w[mesa-utils-extra]
+# default font, installed as a stop-gap measure until snaps can access the
+# fonts of the host.
+runs += %w[fonts-noto fonts-noto-mono]
 
 parts.each_cons(2) do |first_name, second_name|
   # puts "#{second_name} AFTER #{first_name}"

@@ -199,7 +199,6 @@ class SnapcraftConfig
           -usr/share/doc/*
           -usr/share/man/*
           -usr/share/icons/breeze/*.rcc
-          -usr/share/icons/breeze-dark*
           -usr/share/wallpapers/*
           -usr/share/fonts/truetype/freefont/*
         )

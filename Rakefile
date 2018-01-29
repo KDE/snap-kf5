@@ -7,7 +7,9 @@ task :'repo::setup' do
   File.open('/etc/apt/sources.list.d/neon.list', 'w') do |f|
     SOURCES.each { |line| f.puts(line) }
   end
-  sh 'apt-key adv --keyserver keyserver.ubuntu.com --recv 55751E5D'
+  # TODO: would be better if we let all repo setup be handled thru the helper
+  #   currently this only sets up key and proxy (if applicable)
+  sh '/tooling/nci/setup_apt_repo.rb --no-repo'
   sh 'apt update'
 end
 

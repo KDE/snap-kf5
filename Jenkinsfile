@@ -10,7 +10,7 @@ cleanNode('master') {
   stash includes: 'Rakefile, snapcraft.yaml, extend_content.rb, stage-*.json, assets/*', name: 'snapcraft'
 }
 
-cleanNode {
+cleanNode('cloud && amd64') {
   stage ('snapcraft')
   unstash 'snapcraft'
   try {

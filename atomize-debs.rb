@@ -65,7 +65,9 @@ class Source
 
   def parse_control(src)
     system("apt-get --download-only source #{src}") || raise
-    system('dpkg-source -x *.dsc source') || raise
+    FileUtils.mkpath('source/')
+    files = 'debian/control debian/changelog'
+    system("tar -xvf *debian.tar.* -C source #{files}") || raise
     @upstream_version = read_upstream_version('source')
     require_relative 'debian/control'
     control = Debian::Control.new('source')

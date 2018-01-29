@@ -72,6 +72,21 @@ parts file to build. To use it simply
 
 To build simply run `snapcraft` and to clean the tree `snapcraft clean`.
 
+## Testing
+
+To test a newly built snap it's easiest to simply `snap try` it (note: once you
+have a snap try-mounted you do not need to try on subsequent builds, you can
+change stuff in the prime dir as necessary).
+
+```
+snap remove babe
+snap try ./prime/
+/snap/bin/babe
+```
+
+On first start the snap will throw an error on CLI about not being able to find
+the framework and tell you a command to run to connect the plug.
+
 ## Additional Reading
 
 For additional information please check out https://docs.snapcraft.io/

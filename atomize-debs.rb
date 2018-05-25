@@ -204,6 +204,7 @@ class SnapcraftConfig
           -usr/share/ECM/*
           -usr/share/xml/docbook/*
           -usr/share/doc/*
+          -usr/share/locale/*/LC_MESSAGES/vlc.mo
           -usr/share/man/*
           -usr/share/icons/breeze/*.rcc
           -usr/share/icons/breeze-dark/*.rcc

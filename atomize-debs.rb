@@ -195,6 +195,11 @@ class SnapcraftConfig
           -usr/lib/*/qt5/bin/qmake
           -usr/lib/*/qt5/bin/rcc
           -usr/lib/*/qt5/bin/*cpp*
+          -usr/lib/qt5/bin/lupdate
+          -usr/lib/qt5/bin/lrelease
+          -usr/lib/qt5/bin/moc
+          -usr/lib/qt5/bin/qmake
+          -usr/lib/qt5/bin/rcc
           -usr/include/*
           -usr/share/ECM/*
           -usr/share/xml/docbook/*

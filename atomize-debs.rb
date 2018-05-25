@@ -200,6 +200,7 @@ class SnapcraftConfig
           -usr/lib/qt5/bin/moc
           -usr/lib/qt5/bin/qmake
           -usr/lib/qt5/bin/rcc
+          -usr/lib/vlc/plugins/gui/libqt4_plugin.so
           -usr/include/*
           -usr/share/ECM/*
           -usr/share/xml/docbook/*

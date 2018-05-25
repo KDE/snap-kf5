@@ -195,11 +195,23 @@ class SnapcraftConfig
           -usr/lib/*/qt5/bin/qmake
           -usr/lib/*/qt5/bin/rcc
           -usr/lib/*/qt5/bin/*cpp*
+          -usr/lib/qt5/bin/assistant
+          -usr/lib/qt5/bin/designer
+          -usr/lib/qt5/bin/lconvert
+          -usr/lib/qt5/bin/linguist
           -usr/lib/qt5/bin/lupdate
           -usr/lib/qt5/bin/lrelease
           -usr/lib/qt5/bin/moc
+          -usr/lib/qt5/bin/pixeltool
+          -usr/lib/qt5/bin/qcollectiongenerator
+          -usr/lib/qt5/bin/qdbuscpp2xml
+          -usr/lib/qt5/bin/qdbusxml2cpp
+          -usr/lib/qt5/bin/qdoc
+          -usr/lib/qt5/bin/qhelpconverter
+          -usr/lib/qt5/bin/qlalr
           -usr/lib/qt5/bin/qmake
           -usr/lib/qt5/bin/rcc
+          -usr/lib/qt5/bin/syncqt.pl
           -usr/lib/vlc/plugins/gui/libqt4_plugin.so
           -usr/include/*
           -usr/share/ECM/*

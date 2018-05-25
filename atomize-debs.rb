@@ -202,7 +202,7 @@ class SnapcraftConfig
           -usr/share/man/*
           -usr/share/icons/breeze/*.rcc
           -usr/share/wallpapers/*
-          -usr/share/fonts/truetype/freefont/*
+          -usr/share/fonts/*
           -usr/share/pkgconfig
           -usr/lib/*/pkgconfig
           -usr/share/QtCurve
@@ -222,7 +222,7 @@ class SnapcraftConfig
         -usr/share/man/*
         -usr/share/icons/breeze/*.rcc
         -usr/share/wallpapers/*
-        -usr/share/fonts/truetype/freefont/*
+        -usr/share/fonts/*
       )
       @snap = %w($exclusion)
       # @organize = {

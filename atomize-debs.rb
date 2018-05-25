@@ -201,6 +201,7 @@ class SnapcraftConfig
           -usr/share/doc/*
           -usr/share/man/*
           -usr/share/icons/breeze/*.rcc
+          -usr/share/icons/breeze-dark/*.rcc
           -usr/share/wallpapers/*
           -usr/share/fonts/*
           -usr/share/pkgconfig

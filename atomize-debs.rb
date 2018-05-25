@@ -237,13 +237,13 @@ class SnapcraftConfig
           -usr/lib/*/*.pri
         )
       }
-      @stage = %w(
+      @stage = %w[
         -usr/share/doc/*
         -usr/share/man/*
         -usr/share/icons/breeze/*.rcc
         -usr/share/wallpapers/*
         -usr/share/fonts/*
-      )
+      ]
       @snap = %w($exclusion)
       # @organize = {
       #   'etc/*' => 'slash/etc/',
@@ -372,6 +372,13 @@ config.parts['kf5'] = part
 
 dev = SnapcraftConfig::Part.new
 dev.stage_packages = devs.flatten
+dev.stage = (dev.stage + %w[
+  - usr/share/emoticons
+  - usr/share/icons/*
+  - usr/share/locale/*/LC_*/*
+  - usr/share/qt5/translations/*
+  - usr/lib/*/dri/*
+]).uniq
 dev.snap = ['-*']
 dev.after = %w(kf5)
 config.parts['kf5-dev'] = dev

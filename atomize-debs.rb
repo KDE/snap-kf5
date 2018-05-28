@@ -373,11 +373,11 @@ config.parts['kf5'] = part
 dev = SnapcraftConfig::Part.new
 dev.stage_packages = devs.flatten
 dev.stage = (dev.stage + %w[
-  - usr/share/emoticons
-  - usr/share/icons/*
-  - usr/share/locale/*/LC_*/*
-  - usr/share/qt5/translations/*
-  - usr/lib/*/dri/*
+  -usr/share/emoticons
+  -usr/share/icons/*
+  -usr/share/locale/*/LC_*/*
+  -usr/share/qt5/translations/*
+  -usr/lib/*/dri/*
 ]).uniq
 dev.snap = ['-*']
 dev.after = %w(kf5)

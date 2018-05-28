@@ -26,6 +26,14 @@ task :snapcraft do
   sh 'apt install -y snapcraft'
   sh 'snapcraft --debug'
   sh 'ls -lah prime'
+  cleanup = %w[
+    stage/usr/share/emoticons/*
+    stage/usr/share/icons/*
+    stage/usr/share/locale/*/LC_*/*
+    stage/usr/share/qt5/translations/*
+    stage/usr/lib/*/dri/*
+  ]
+  sh "rm -rf #{cleanup.join(' ')}"
   sh 'XZ_OPT=-2 tar -cJf kde-frameworks-5-dev_amd64.tar.xz stage'
   ruby 'extend_content.rb'
 end

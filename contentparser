@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 3 of
+# the License or any later version accepted by the membership of 
+# KDE e.V. (or its successor approved by the membership of KDE
+# e.V.), which shall act as a proxy defined in Section 14 of
+# version 3 of the license.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Parses output of 7z inspecting a squashfs and sorts by compressed size.
+
+# bionic 7z needed.
+# 7z l -slt kde-frameworks-5_19.squashfs &> content
+
+class Entry
+  attr_reader :path
+  attr_reader :folder
+  attr_reader :size
+  attr_reader :packed_size
+  attr_reader :modified
+  attr_reader :mode
+
+  def initialize(blob)
+    hash = blob.split("\n")
+    hash = hash.collect do |line|
+      line.split(' = ', 2)
+    end.to_h
+    @path = hash.delete('Path')
+    @folder = hash.delete('Folder')
+    @size = hash.delete('Size').to_i
+    @packed_size = hash.delete('Packed Size').to_i
+    @modified = hash.delete('Modified')
+    @mode = hash.delete('Mode')
+    raise hash unless hash.empty?
+  end
+end
+
+data = File.read('content')
+data = data.split("----------\n", 2)[-1]
+blobs = data.split("\n\n")
+entries = blobs.collect { |x| Entry.new(x) }
+entries = entries.sort_by!(&:packed_size)
+require 'pp'
+entries.each do |x|
+  puts format("%-100s %s\n", x.path, x.packed_size)
+  # puts "#{x.path}"
+end

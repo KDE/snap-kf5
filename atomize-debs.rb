@@ -344,9 +344,6 @@ parts = [nil] + parts
 devs = []
 # mesa-utils-extra - es2_info useful to debug GL problems.
 runs = %w[mesa-utils-extra]
-# default font, installed as a stop-gap measure until snaps can access the
-# fonts of the host.
-runs += %w[fonts-noto fonts-noto-mono]
 # GStreamer plugins
 runs += %w[gstreamer1.0-fluendo-mp3 gstreamer1.0-x gstreamer1.0-plugins-base
            gstreamer1.0-pulseaudio gstreamer1.0-plugins-good]

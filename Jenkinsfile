@@ -6,7 +6,10 @@ cleanNode('master') {
   git 'https://github.com/apachelogger/kf5-snap'
   sh '~/tooling/nci/contain.rb rake generate'
   sh "echo '----snapcraft----'; cat snapcraft.yaml; echo '----snapcraft----'"
-  archiveArtifacts 'snapcraft.yaml'
+  copyArtifacts projectName: env.JOB_NAME, filter: 'content.json, versions.json', optional: true
+  // This should really be pushed into git, alas, somewhat tricky because github
+  // and pipeline git plugin can't push on its own.
+  archiveArtifacts 'snapcraft.yaml, content.json, versions.json'
   stash includes: 'Rakefile, snapcraft.yaml, extend_content.rb, stage-*.json, assets/*', name: 'snapcraft'
 }
 

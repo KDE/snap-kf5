@@ -4,4 +4,7 @@ runtime.snapcraft.yaml
 snapcraft.yaml
 build/
 *.json
-setup/ # legacy snapcraft
+remote/
+
+stage/
+prime/

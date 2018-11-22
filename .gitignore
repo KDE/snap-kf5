@@ -1,0 +1,7 @@
+new
+build.snapcraft.yaml
+runtime.snapcraft.yaml
+snapcraft.yaml
+build/
+*.json
+setup/ # legacy snapcraft

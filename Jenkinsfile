@@ -1,22 +1,23 @@
-env.DIST = 'xenial'
+env.DIST = 'bionic'
 env.TYPE = 'user'
 
 cleanNode('master') {
   stage 'generate'
-  git 'https://github.com/apachelogger/kf5-snap'
+  git 'https://github.com/apachelogger/kf5-snap-core18'
   sh '~/tooling/nci/contain.rb rake generate'
   sh "echo '----snapcraft----'; cat snapcraft.yaml; echo '----snapcraft----'"
   copyArtifacts projectName: env.JOB_NAME, filter: 'content.json, versions.json', optional: true
   // This should really be pushed into git, alas, somewhat tricky because github
   // and pipeline git plugin can't push on its own.
   archiveArtifacts 'snapcraft.yaml, content.json, versions.json'
-  stash includes: 'Rakefile, snapcraft.yaml, extend_content.rb, stage-*.json, assets/*', name: 'snapcraft'
+  stash includes: 'Rakefile, snapcraft.yaml, build/snapcraft.yaml, extend_content.rb, stage-*.json, assets/*', name: 'snapcraft'
 }
 
 cleanNode('cloud && amd64') {
   stage ('snapcraft')
   unstash 'snapcraft'
   try {
+    sh 'ls -lahR'
     sh '~/tooling/nci/contain.rb rake snapcraft'
   } finally {
     // Fix permissions, for some reason breeze' source is chowned to 1000.
@@ -25,14 +26,12 @@ cleanNode('cloud && amd64') {
   }
   sh 'ls -lah'
   archiveArtifacts 'stage-*.json, kde-frameworks-5_*_amd64.snap'
-  stash name: 'snaps', includes: 'Rakefile, *_amd64.snap, kde-frameworks-5-dev_amd64.tar.xz*'
+  stash name: 'snaps', includes: 'Rakefile, *_amd64.snap, build/*_amd64.snap'
 }
 
 cleanNode('master') {
   stage 'snapcraft push'
   unstash 'snaps'
-  sh 'gpg2 --armor --detach-sign -o kde-frameworks-5-dev_amd64.tar.xz.sig kde-frameworks-5-dev_amd64.tar.xz'
-  archiveArtifacts 'kde-frameworks-5-dev_amd64.tar.xz*'
   sh 'tree || ls -lahR'
   // Temporary workspace during pipeline execution can't be accessed via UI, so
   // this should be save.

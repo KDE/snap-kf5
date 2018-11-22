@@ -64,6 +64,7 @@ class Source
   end
 
   def parse_control(src)
+    p src
     system("apt-get --download-only source #{src}") || raise
     FileUtils.mkpath('source/')
     files = 'debian/control debian/changelog'
@@ -174,13 +175,14 @@ class SnapcraftConfig
     # Hash
     attr_accessor :filesets
     # Array<String>
-    attr_accessor :snap
+    attr_accessor :prime
     # Array<String>
     attr_accessor :stage
     # Hash<String, String>
     attr_accessor :organize
 
     attr_writer :source
+    attr_writer :source_branch
     attr_writer :configflags
 
     def initialize
@@ -235,6 +237,7 @@ class SnapcraftConfig
           -usr/bin/dh_*
           -usr/lib/*/*.a
           -usr/lib/*/*.pri
+          -usr/share/kf5/kdoctools/*
         )
       }
       @stage = %w[
@@ -244,7 +247,7 @@ class SnapcraftConfig
         -usr/share/wallpapers/*
         -usr/share/fonts/*
       ]
-      @snap = %w($exclusion)
+      @prime = %w($exclusion)
       # @organize = {
       #   'etc/*' => 'slash/etc/',
       #   'usr/*' => 'slash/usr/'
@@ -253,7 +256,7 @@ class SnapcraftConfig
 
     def encode_with(c)
       if @plugin != 'nil'
-        c['configflags'] = @configflags
+        c['configflags'] = @configflags if @configflags
         c['source'] = @source
       end
       super if defined?(super)
@@ -280,6 +283,7 @@ class SnapcraftConfig
   attr_accessor :grade
   attr_accessor :slots
   attr_accessor :parts
+  attr_accessor :base
 
   def initialize
     @parts = {}
@@ -288,18 +292,19 @@ class SnapcraftConfig
 end
 
 config = SnapcraftConfig.new
-config.name = 'kde-frameworks-5'
+config.name = 'kde-frameworks-5-core18'
 config.version = 'unknown'
 config.summary = 'KDE Frameworks 5'
 config.description = 'KDE Frameworks are addons and useful extensions to Qt'
 config.confinement = 'strict'
 config.grade = 'stable'
+config.base = 'core18'
 
 slot = SnapcraftConfig::Slot.new
-slot.content = 'kde-frameworks-5-all'
+slot.content = 'kde-frameworks-5-core18-all'
 slot.interface = 'content'
 slot.read = %w[.]
-config.slots['kde-frameworks-5-slot'] = slot
+config.slots['kde-frameworks-5-core18-slot'] = slot
 
 # These are only old versions! The new version is created later after we know
 # the current versions of the content.
@@ -383,7 +388,7 @@ end
 # This is the only way we can version a content snap.
 kf5_version = 'kde-frameworks-' + kf5_version.split('.')[0..1].join('-')
 qt5_version = 'qt-' + qt5_version.split('.')[0..1].join('-')
-platform_version = 'ubuntu-1604'
+platform_version = 'core18'
 
 latest_version = [kf5_version, qt5_version, platform_version].join('-')
 # Dump the latest interface. The application builds will pick this up and
@@ -419,7 +424,7 @@ dev.stage = (dev.stage + %w[
   -usr/share/qt5/translations/*
   -usr/lib/*/dri/*
 ]).uniq
-dev.snap = ['-*']
+dev.prime = ['-*']
 dev.after = %w(kf5)
 config.parts['kf5-dev'] = dev
 
@@ -441,6 +446,8 @@ breeze.build_packages = %w(
   libkf5kcmutils-dev
   kwayland-dev
   libkf5package-dev
+  libfftw3-dev
+  gettext
 )
 breeze.configflags = %w(
   -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
@@ -452,7 +459,7 @@ breeze.configflags = %w(
   -DWITH_DECORATIONS=OFF
 )
 breeze.plugin = 'cmake'
-breeze.source = 'http://download.kde.org/stable/plasma/5.10.5/breeze-5.10.5.tar.xz'
+breeze.source = 'http://download.kde.org/stable/plasma/5.14.3/breeze-5.14.3.tar.xz'
 config.parts['breeze'] = breeze
 
 integration = SnapcraftConfig::Part.new
@@ -481,9 +488,34 @@ integration.configflags = %w(
   -DKDE_SKIP_TEST_SETTINGS=ON
 )
 integration.plugin = 'cmake'
-integration.source = 'http://download.kde.org/stable/plasma/5.10.5/plasma-integration-5.10.5.tar.xz'
+integration.source = 'https://anongit.kde.org/plasma-integration.git'
+# FIXME: temporary for testing new settings portal support
+integration.source_branch = 'jgrulich/portal-support'
 config.parts['plasma-integration'] = integration
 
 puts File.write('snapcraft.yaml', YAML.dump(config, indentation: 4))
+puts File.write('runtime.snapcraft.yaml', YAML.dump(config, indentation: 4))
 puts File.write('stage-content.json', JSON.generate(runs))
 puts File.write('stage-dev.json', JSON.generate(runs + devs))
+
+### build snap
+
+config.name = 'kde-frameworks-5-core18-sdk'
+config.parts.clear
+
+sdk = SnapcraftConfig::Part.new
+sdk.plugin = 'dump'
+sdk.source = '../stage'
+sdk.stage += %w[
+  -usr/share/emoticons/*
+  -usr/share/icons/*
+  -usr/share/locale/*/LC_*/*
+  -usr/share/qt5/translations/*
+  -usr/lib/*/dri/*
+]
+sdk.prime = nil
+sdk.filesets = nil
+config.parts['kf5'] = sdk
+
+puts File.write('build/snapcraft.yaml', YAML.dump(config, indentation: 4))
+puts File.write('build.snapcraft.yaml', YAML.dump(config, indentation: 4))

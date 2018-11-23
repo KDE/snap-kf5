@@ -1,3 +1,4 @@
+require 'fileutils'
 require 'json'
 require 'tmpdir'
 require 'yaml'
@@ -520,5 +521,6 @@ sdk.prime = nil
 sdk.filesets = nil
 config.parts['kf5'] = sdk
 
+FileUtils.mkpath('build')
 puts File.write('build/snapcraft.yaml', YAML.dump(config, indentation: 4))
 puts File.write('build.snapcraft.yaml', YAML.dump(config, indentation: 4))

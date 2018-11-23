@@ -38,7 +38,7 @@ cleanNode('master') {
   // Even so we should move to a contain.rb which forward mounts the snapcraft
   // dir as volume into the container.
   sh 'cp ~/.config/snapcraft/snapcraft.cfg snapcraft.cfg'
-  sh '~/tooling/nci/contain.rb rake publish'
+  // sh '~/tooling/nci/contain.rb rake publish'
 }
 
 def cleanNode(label = null, body) {

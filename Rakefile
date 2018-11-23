@@ -25,16 +25,13 @@ file '/etc/apt/sources.list.d/neon.list' do
   sh 'apt update'
 end
 
-%w[runtime.snapcraft.yaml build.snapcraft.yaml].each do |yaml|
-  file yaml => '/etc/apt/sources.list.d/neon.list' do
-    # Dependency of deb822 parser borrowed from pangea-tooling.
-    sh 'gem install insensitive_hash'
-    ruby 'atomize-debs.rb'
-  end
+task :generate => '/etc/apt/sources.list.d/neon.list' do
+  # Dependency of deb822 parser borrowed from pangea-tooling.
+  sh 'gem install insensitive_hash'
+  ruby 'atomize-debs.rb'
 end
-task :generate => 'runtime.snapcraft.yaml'
 
-task :snapcraft => %w[runtime.snapcraft.yaml build.snapcraft.yaml] do
+task :snapcraft => '/etc/apt/sources.list.d/neon.list' do
   require 'pp'
   pp ENV
   sh 'apt install -y snapcraft'
@@ -55,7 +52,6 @@ task :snapcraft => %w[runtime.snapcraft.yaml build.snapcraft.yaml] do
   # packages which are already in the sdk.
   ruby 'extend_content.rb'
 end
-task :snapcraft => '/etc/apt/sources.list.d/neon.list'
 
 task :publish do
   require 'fileutils'

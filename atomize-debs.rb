@@ -308,7 +308,10 @@ config.slots['kde-frameworks-5-core18-slot'] = slot
 
 # These are only old versions! The new version is created later after we know
 # the current versions of the content.
-content_versions = JSON.parse(File.read('versions.json')).uniq
+content_versions = []
+if File.exist?('versions.json')
+  content_versions = JSON.parse(File.read('versions.json')).uniq
+end
 content_versions.each do |content_version|
   slot = SnapcraftConfig::Slot.new
   slot.content = content_version

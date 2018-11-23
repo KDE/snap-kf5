@@ -3,7 +3,7 @@ env.TYPE = 'user'
 
 cleanNode('master') {
   stage 'generate'
-  git 'https://github.com/apachelogger/kf5-snap-core18'
+  checkout scm
   sh '~/tooling/nci/contain.rb rake generate'
   sh "echo '----snapcraft----'; cat snapcraft.yaml; echo '----snapcraft----'"
   copyArtifacts projectName: env.JOB_NAME, filter: 'content.json, versions.json', optional: true

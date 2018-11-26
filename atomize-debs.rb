@@ -508,7 +508,6 @@ integration.source = 'https://anongit.kde.org/plasma-integration.git'
 integration.source_branch = 'jgrulich/portal-support'
 config.parts['plasma-integration'] = integration
 
-puts YAML.dump(config, indentation: 4)
 puts File.write('snapcraft.yaml', YAML.dump(config, indentation: 4))
 puts File.write('runtime.snapcraft.yaml', YAML.dump(config, indentation: 4))
 puts File.write('stage-content.json', JSON.generate(runs))

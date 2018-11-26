@@ -59,6 +59,6 @@ task :publish do
   sh 'apt install -y snapcraft'
   cfgdir = Dir.home + '/.config/snapcraft'
   FileUtils.mkpath(cfgdir)
-  File.write("#{cfgdir}/snapcraft.cfg", File.read('snapcraft.cfg'))
+  FileUtils.cp('snapcraft.cfg', "#{cfgdir}/snapcraft.cfg", verbose: true)
   sh 'snapcraft push *.snap --release edge'
 end

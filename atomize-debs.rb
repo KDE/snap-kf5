@@ -264,6 +264,12 @@ class SnapcraftConfig
       if @plugin != 'nil'
         c['configflags'] = @configflags if @configflags
         c['source'] = @source
+        # Slap in all source_* attributes for good measure.
+        instance_variables.each do |v|
+          name = v.to_s.tr('@', '').tr('_', '-')
+          next unless v.to_s.start_with?('@source_')
+          c[name] = instance_variable_get(v)
+        end
       end
       super if defined?(super)
     end

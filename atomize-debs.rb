@@ -182,6 +182,11 @@ class SnapcraftConfig
     # Hash<String, String>
     attr_accessor :organize
 
+    # This cannot be read again! The reason is that when serializing into
+    # YAML we need something to iterate on, that's readable attributes. Since
+    # these are not readable they'll not get serialzed by default.
+    # NB: when adding a new attribute here, you need to manually serialize
+    #   it in #encode_with!
     attr_writer :source
     attr_writer :source_branch
     attr_writer :configflags

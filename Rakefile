@@ -60,5 +60,7 @@ task :publish do
   cfgdir = Dir.home + '/.config/snapcraft'
   FileUtils.mkpath(cfgdir)
   FileUtils.cp('snapcraft.cfg', "#{cfgdir}/snapcraft.cfg", verbose: true)
-  sh 'snapcraft push *.snap --release edge'
+  Dir.glob('**/*.snap').each do |snap|
+    sh "snapcraft push #{snap} --release edge"
+  end
 end

@@ -516,6 +516,10 @@ puts File.write('stage-dev.json', JSON.generate(runs + devs))
 ### build snap
 
 config.name = 'kde-frameworks-5-core18-sdk'
+# We mustn't define the slots in the SDK, it'd confuse snapd on what to
+# autoconnect when both snaps are installed.
+config.slots.clear
+# Wipe parts, we'll set new ones.
 config.parts.clear
 
 sdk = SnapcraftConfig::Part.new

@@ -538,6 +538,8 @@ sdk.stage += %w[
   -usr/share/qt5/translations/*
   -usr/lib/*/dri/*
 ]
+# wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
+sdk.prepare = "#{__dir__}/sdk_wrapper.rb"
 sdk.prime = nil
 sdk.filesets = nil
 config.parts['kf5'] = sdk

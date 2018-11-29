@@ -10,7 +10,7 @@ cleanNode('master') {
   // This should really be pushed into git, alas, somewhat tricky because github
   // and pipeline git plugin can't push on its own.
   archiveArtifacts 'snapcraft.yaml, content.json, versions.json'
-  stash includes: 'Rakefile, snapcraft.yaml, build/snapcraft.yaml, extend_content.rb, stage-*.json, assets/*', name: 'snapcraft'
+  stash includes: 'Rakefile, snapcraft.yaml, build/snapcraft.yaml, extend_content.rb, sdk_wrapper.rb, stage-*.json, assets/*', name: 'snapcraft'
 }
 
 cleanNode('cloud && amd64') {

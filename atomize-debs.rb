@@ -181,6 +181,12 @@ class SnapcraftConfig
     attr_accessor :stage
     # Hash<String, String>
     attr_accessor :organize
+    # String script
+    attr_accessor :prepare
+    # String script
+    attr_accessor :build
+    # String script
+    attr_accessor :install
 
     # This cannot be read again! The reason is that when serializing into
     # YAML we need something to iterate on, that's readable attributes. Since

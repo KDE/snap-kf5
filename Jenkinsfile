@@ -1,5 +1,6 @@
 env.DIST = 'bionic'
 env.TYPE = 'user'
+env.PWD_BIND = '/workspace'
 
 cleanNode('master') {
   stage 'generate'

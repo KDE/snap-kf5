@@ -539,7 +539,7 @@ sdk.stage += %w[
   -usr/lib/*/dri/*
 ]
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
-sdk.prepare = "../sdk_wrapper.rb"
+sdk.prepare = "pwd; ../sdk_wrapper.rb"
 sdk.prime = nil
 sdk.filesets = nil
 config.parts['kf5'] = sdk

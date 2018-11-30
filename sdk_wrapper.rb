@@ -98,7 +98,7 @@ EOF
       File.write(exe, <<-EOF)
 #!/bin/bash
 
-export LD_LIBRARY_PATH=/snap/kde-frameworks-5-core18/current/usr/lib/x86_64-linux-gnu:/snap/kde-frameworks-5-core18/current/usr/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=/snap/kde-frameworks-5-core18-sdk/current/usr/lib/x86_64-linux-gnu:/snap/kde-frameworks-5-core18-sdk/current/usr/lib:${LD_LIBRARY_PATH}
 exec $(dirname "$0")/#{basename}.orig "$@"
       EOF
       FileUtils.chmod(0o0755, exe, verbose: true)

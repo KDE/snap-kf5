@@ -104,6 +104,7 @@ export XDG_DATA_DIRS=$SNAP/usr/local/share:$SNAP/usr/share:$XDG_DATA_DIRS:/usr/s
 export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH:$SNAP/usr/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/qt5/libs:$LD_LIBRARY_PATH:$LD_LIBRARY_PATH
 export PATH=$SNAP/bin:$SNAP/sbin:$SNAP/usr/bin:$KF5/usr/sbin:$PATH
+
 exec $(dirname "$0")/#{basename}.orig "$@"
       EOF
       FileUtils.chmod(0o0755, exe, verbose: true)

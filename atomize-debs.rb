@@ -354,6 +354,7 @@ parts = %w(extra-cmake-modules kcoreaddons) + # kdesupport/polkit-qt-1
            plasma-framework kxmlrpcclient kpeople frameworkintegration
            kdoctools
            kdesignerplugin
+           ksyntax-highlighting
            krunner kwayland baloo)
            # plasma-integration) # extra integration pulls in breeze pulls in kde4/qt4
 parts += %w(qtwebkit qtbase qtdeclarative qtgraphicaleffects qtlocation

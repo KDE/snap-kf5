@@ -10,7 +10,7 @@ cleanNode('cloud && amd64') {
     copyArtifacts projectName: env.JOB_NAME, filter: 'content.json, versions.json', optional: true
     // This should really be pushed into git, alas, somewhat tricky because github
     // and pipeline git plugin can't push on its own.
-    archiveArtifacts 'snapcraft.yaml, content.json, versions.json'
+    archiveArtifacts 'snapcraft.yaml, content.json, versions.json, build.snapcraft.yaml'
   }
 
   stage('snapcraft') {

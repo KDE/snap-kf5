@@ -105,6 +105,9 @@ export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH:$SNAP/usr/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/qt5/libs:$LD_LIBRARY_PATH:$LD_LIBRARY_PATH
 export PATH=$SNAP/bin:$SNAP/sbin:$SNAP/usr/bin:$KF5/usr/sbin:$PATH
 
+export QTCHOOSER_NO_GLOBAL_DIR=1
+export QT_SELECT=5
+
 exec $(dirname "$0")/#{basename}.orig "$@"
       EOF
       FileUtils.chmod(0o0755, exe, verbose: true)

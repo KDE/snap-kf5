@@ -108,19 +108,19 @@ class Source
   end
 
   MAP = {
-    'qt5' => %w(qtbase-opensource-src
+    'qt5' => %w[qtbase-opensource-src
                 qtscript-opensource-src
                 qtdeclarative-opensource-src
                 qttools-opensource-src
                 qtsvg-opensource-src
-                qtx11extras-opensource-src),
-    'kwallet' => %w(kwallet-kf5),
+                qtx11extras-opensource-src],
+    'kwallet' => %w[kwallet-kf5],
     'kdnssd' => %w[kdnssd-kf5],
-    'baloo' => %w(baloo-kf5),
-    'kdoctools' => %w(kdoctools5),
-    'kfilemetadata' => %w(kfilemetadata-kf5),
-    'attica' => %w(attica-kf5),
-    'kactivities' => %w(kactivities-kf5)
+    'baloo' => %w[baloo-kf5],
+    'kdoctools' => %w[kdoctools5],
+    'kfilemetadata' => %w[kfilemetadata-kf5],
+    'attica' => %w[attica-kf5],
+    'kactivities' => %w[kactivities-kf5]
   }.freeze
 
   def sources

@@ -115,7 +115,7 @@ class Source
                 qtsvg-opensource-src
                 qtx11extras-opensource-src),
     'kwallet' => %w(kwallet-kf5),
-    'kdnssd' => [],
+    'kdnssd' => %w[kdnssd-kf5],
     'baloo' => %w(baloo-kf5),
     'kdoctools' => %w(kdoctools5),
     'kfilemetadata' => %w(kfilemetadata-kf5),

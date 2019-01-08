@@ -24,6 +24,12 @@ require 'tmpdir'
 
 require 'tty/command'
 
+# qmlcachegen for reasons beyond me is not actually an imported target but
+# set as a variable and then directly passed into execute_process.
+STATIC_EXES = %w[
+  /workspace/build/parts/kf5/build/usr/bin/qmlcachegen
+].freeze
+
 configs = []
 Dir.chdir('usr/lib/x86_64-linux-gnu/cmake/') do
   Dir.glob('*/*Config.cmake').each do |config_file|
@@ -87,6 +93,7 @@ EOF
     cmd.run('cmake', '.', "-DCMAKE_FIND_ROOT_PATH=#{Dir.pwd}", chdir: tmpdir)
 
     exes = File.read("#{tmpdir}/import.txt").strip.split(';')
+    exes += STATIC_EXES
     exes.each do |exe|
       warn "exe... #{exe}"
       # FIXME: maybe realname it first, in case there's a symlink?

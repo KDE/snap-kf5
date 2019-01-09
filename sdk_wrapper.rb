@@ -149,7 +149,7 @@ export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/qt5/libs:$LD_LIBRARY_PATH:$LD_LIBRARY
 export PATH=$SNAP/bin:$SNAP/sbin:$SNAP/usr/bin:$KF5/usr/sbin:$PATH
 
 # Pulseaudio plugins [pulseaudi-common is a link-time requirement for symbols]
-export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/pulseaudio
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP/usr/lib/$ARCH/pulseaudio
 
 # qtchooser hardcodes the global path, ignore it, it's always wrong!
 export QTCHOOSER_NO_GLOBAL_DIR=1

@@ -129,9 +129,9 @@ EOF
       wrapped_dir = "#{dir}/snap-sdk-wrappers"
       wrapped_dir_name = Pathname.new(File.absolute_path(wrapped_dir))
       wrapped_exe = "#{wrapped_dir}/#{basename}"
-      FileUtils.mkpath(wrapped_dir)
+      FileUtils.mkpath(wrapped_dir, verbose: true)
       relative_target_name = target_name.relative_path_from(wrapped_dir_name)
-      FileUtils.ln_s(relative_target_name, wrapped_exe)
+      FileUtils.ln_s(relative_target_name, wrapped_exe, verbose: true)
 
       File.write(exe, <<-EOF)
 #!/bin/bash

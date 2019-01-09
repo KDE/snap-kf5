@@ -100,6 +100,12 @@ EOF
       # FIXME: maybe realname it first, in case there's a symlink?
       next if wrapped_exes.include?(exe)
 
+      orig_exe = "#{exe}.orig"
+      if File.exist?(orig_exe) # already created elsewhere?
+        warn "#{exe} already exists (unexpectedly); no wrapping is being done!"
+        next
+      end
+
       # This is fairly metal...
       # qtchooser determines its own name by looking at its process name.
       # Soooo a simple move trick won't work because foo.orig != foo which

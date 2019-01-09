@@ -162,3 +162,11 @@ File.write("#{qtchooser_config_dir}/default.conf", <<-CONF)
 CONF
 FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/qt5.conf")
 FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/5.conf")
+
+# Symlink pulseaudio plugins into main lib dir so they may be found at link time
+# (hopefully)
+Dir.chdir('/workspace/build/parts/kf5/build/usr/lib/x86_64-linux-gnu/pulseaudio') do
+  Dir.glob('*').each do |file|
+    FileUtils.ln_s("pulseaudio/#{file}", "../#{file}", verbose: true)
+  end
+end

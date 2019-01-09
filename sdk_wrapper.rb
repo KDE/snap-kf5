@@ -20,6 +20,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'fileutils'
+require 'pathname'
 require 'tmpdir'
 
 require 'tty/command'
@@ -99,23 +100,62 @@ EOF
       # FIXME: maybe realname it first, in case there's a symlink?
       next if wrapped_exes.include?(exe)
 
+      orig_exe = "#{exe}.orig"
+      if File.exist?(orig_exe) # already created elsewhere?
+        warn "#{exe} already exists (unexpectedly); no wrapping is being done!"
+        next
+      end
+
+      # This is fairly metal...
+      # qtchooser determines its own name by looking at its process name.
+      # Soooo a simple move trick won't work because foo.orig != foo which
+      # would make qtchooser fail as our wrapper foo execs foo.orig and foo.orig
+      # is then the execname detected by qtchooser.
+      # To allow for this, qtchooser exes are replaced with a wrapper BUT
+      # the orig is not renamed but instead re-created inside a subdir.
+      # So:
+      #   bin/qmake [wrapper] => exec bin/wrapper/qmake
+      #   bin/wrapper/qmake [symlink] => ../qtchooser
+      #   bin/qtchooser [wrapped but execname == qmake]
+      # Other proceses may well assume their exec dir being usr/bin/, since I
+      # have no evidence of that we'll apply the above for everything, not just
+      # qtchooser. In the event that this should cause problems we'll have to
+      # split the code paths between qtchooser and everything else.
+
       basename = File.basename(exe)
-      FileUtils.mv(exe, "#{exe}.orig", verbose: true)
+      dir = File.dirname(exe)
+      target_name = Pathname.new(File.realpath(exe))
+
+      wrapper_dir = "#{dir}/snap-sdk-wrappers"
+      wrapped_dir_name = Pathname.new(File.absolute_path(wrapped_dir))
+      wrapped_exe = "#{wrapper_dir}/#{basename}"
+      FileUtils.mkpath(wrapper_dir)
+      relative_target_name = target_name.relative_path_from(wrapped_dir_name)
+      FileUtils.ln_s(relative_target_name, wrapped_exe)
 
       File.write(exe, <<-EOF)
 #!/bin/bash
 
 SNAP=/snap/kde-frameworks-5-core18-sdk/current
 ARCH=x86_64-linux-gnu
+
+# Used by e.g. meinproc to locate XML assets at build-time
 export XDG_DATA_DIRS=$SNAP/usr/local/share:$SNAP/usr/share:$XDG_DATA_DIRS:/usr/share:/usr/local/share
+# Used by qtchooser to locate its configs.
+export XDG_CONFIG_DIRS=$SNAP/etc/xdg:/etc/xdg
+
 export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH:$SNAP/usr/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/qt5/libs:$LD_LIBRARY_PATH:$LD_LIBRARY_PATH
 export PATH=$SNAP/bin:$SNAP/sbin:$SNAP/usr/bin:$KF5/usr/sbin:$PATH
 
+# Pulseaudio plugins [pulseaudi-common is a link-time requirement for symbols]
+export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/pulseaudio
+
+# qtchooser hardcodes the global path, ignore it, it's always wrong!
 export QTCHOOSER_NO_GLOBAL_DIR=1
 export QT_SELECT=5
 
-exec $(dirname "$0")/#{basename}.orig "$@"
+exec $(dirname "$0")/snap-sdk-wrappers/#{basename} "$@"
       EOF
       FileUtils.chmod(0o0755, exe, verbose: true)
 
@@ -123,3 +163,14 @@ exec $(dirname "$0")/#{basename}.orig "$@"
     end
   end
 end
+
+# Set suitable qtchooser configs (the pertinent XDG_ variable is set
+# by the wrapper),
+qtchooser_config_dir = '/workspace/build/parts/kf5/build/etc/xdg/qtchooser/'
+FileUtils.mkpath(qtchooser_config_dir)
+File.write("#{qtchooser_config_dir}/default.conf", <<-CONF)
+/snap/kde-frameworks-5-core18-sdk/current/usr/lib/qt5/bin
+/snap/kde-frameworks-5-core18-sdk/current/usr/lib/x86_64-linux-gnu
+CONF
+FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/qt5.conf")
+FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/5.conf")

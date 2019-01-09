@@ -523,12 +523,6 @@ puts File.write('stage-dev.json', JSON.generate(runs + devs))
 ### build snap
 
 config.name = 'kde-frameworks-5-core18-sdk'
-# classic confinement should cause rpaths getting forced onto the elfs.
-# Conceivably that might help with making link-time symbol resolution more
-# reliable. Since we do not actually `snap run` anything the actual confinement
-# mode isn't particularly relevant. FTR: snap running with classic likely won't
-# be a good idea.
-config.confinement = 'classic'
 # We mustn't define the slots in the SDK, it'd confuse snapd on what to
 # autoconnect when both snaps are installed.
 config.slots.clear

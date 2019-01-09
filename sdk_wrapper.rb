@@ -126,10 +126,10 @@ EOF
       dir = File.dirname(exe)
       target_name = Pathname.new(File.realpath(exe))
 
-      wrapper_dir = "#{dir}/snap-sdk-wrappers"
+      wrapped_dir = "#{dir}/snap-sdk-wrappers"
       wrapped_dir_name = Pathname.new(File.absolute_path(wrapped_dir))
-      wrapped_exe = "#{wrapper_dir}/#{basename}"
-      FileUtils.mkpath(wrapper_dir)
+      wrapped_exe = "#{wrapped_dir}/#{basename}"
+      FileUtils.mkpath(wrapped_dir)
       relative_target_name = target_name.relative_path_from(wrapped_dir_name)
       FileUtils.ln_s(relative_target_name, wrapped_exe)
 

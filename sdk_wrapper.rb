@@ -106,37 +106,20 @@ EOF
         next
       end
 
-      # This is fairly metal...
-      # qtchooser determines its own name by looking at its process name.
-      # Soooo a simple move trick won't work because foo.orig != foo which
-      # would make qtchooser fail as our wrapper foo execs foo.orig and foo.orig
-      # is then the execname detected by qtchooser.
-      # To allow for this, qtchooser exes are replaced with a wrapper BUT
-      # the orig is not renamed but instead re-created inside a subdir.
-      # So:
-      #   bin/qmake [wrapper] => exec bin/wrapper/qmake
-      #   bin/wrapper/qmake [symlink] => ../qtchooser
-      #   bin/qtchooser [wrapped but execname == qmake]
-      # Other proceses may well assume their exec dir being usr/bin/, since I
-      # have no evidence of that we'll apply the above for everything, not just
-      # qtchooser. In the event that this should cause problems we'll have to
-      # split the code paths between qtchooser and everything else.
+      # We move the orig file to .orig, replace it with our wrapper and symlink
+      # back up.
+      # This allows qtchooser to have the correct execname and qapplications to
+      # still be in the correct appdir (e.g. usr/bin/).
+      # foo ->wraps-> snap-sdk-wrappers/foo ->symlinks-> foo.orig
+
+      FileUtils.mv(exe, orig_exe, verbose: true)
 
       basename = File.basename(exe)
       dir = File.dirname(exe)
-
       wrapped_dir = "#{dir}/snap-sdk-wrappers"
-      wrapped_dir_name = Pathname.new(File.absolute_path(wrapped_dir))
       wrapped_exe = "#{wrapped_dir}/#{basename}"
       FileUtils.mkpath(wrapped_dir, verbose: true)
-
-      if File.symlink?(exe) # qtchooser for example is qmake->qtchooser
-        target_name = Pathname.new(File.realpath(exe))
-        relative_target_name = target_name.relative_path_from(wrapped_dir_name)
-        FileUtils.ln_s(relative_target_name, wrapped_exe, verbose: true)
-      else
-        FileUtils.mv(exe, wrapped_exe, verbose: true)
-      end
+      FileUtils.ln_s("../#{basename}.orig", wrapped_exe, verbose: true)
 
       File.write(exe, <<-EOF)
 #!/bin/bash

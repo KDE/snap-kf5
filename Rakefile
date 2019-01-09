@@ -44,13 +44,6 @@ task :snapcraft => '/etc/apt/sources.list.d/neon.list' do
   # And now build the sdk build-snap (dumps stage into a separate snap)
   # FileUtils.cp('build.snapcraft.yaml', 'snapcraft.yaml')
   Dir.chdir('build') do
-    # Temporary hack to force rpath injection. Unclear if this will improve things,
-    # so for now simply hack us into classic mode. Properly being classic
-    # requires a store approval.
-    data = File.read('/usr/lib/python3/dist-packages/snapcraft/internal/pluginhandler/_patchelf.py')
-    data.gsub!('logger.debug', 'logger.warning')
-    data.gsub!('self._is_classic = confinement == "classic"', 'self._is_classic = True')
-    File.write('/usr/lib/python3/dist-packages/snapcraft/internal/pluginhandler/_patchelf.py', data)
     sh 'snapcraft clean || true'
     sh 'snapcraft --debug'
   end

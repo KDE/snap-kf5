@@ -118,14 +118,19 @@ EOF
 
       basename = File.basename(exe)
       dir = File.dirname(exe)
-      target_name = Pathname.new(File.realpath(exe))
 
       wrapped_dir = "#{dir}/snap-sdk-wrappers"
       wrapped_dir_name = Pathname.new(File.absolute_path(wrapped_dir))
       wrapped_exe = "#{wrapped_dir}/#{basename}"
       FileUtils.mkpath(wrapped_dir, verbose: true)
-      relative_target_name = target_name.relative_path_from(wrapped_dir_name)
-      FileUtils.ln_s(relative_target_name, wrapped_exe, verbose: true)
+
+      if File.symlink?(exe) # qtchooser for example is qmake->qtchooser
+        target_name = Pathname.new(File.realpath(exe))
+        relative_target_name = target_name.relative_path_from(wrapped_dir_name)
+        FileUtils.ln_s(relative_target_name, wrapped_exe, verbose: true)
+      else
+        FileUtils.mv(exe, wrapped_exe, verbose: true)
+      end
 
       File.write(exe, <<-EOF)
 #!/bin/bash

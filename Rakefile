@@ -35,7 +35,7 @@ task :snapcraft => '/etc/apt/sources.list.d/neon.list' do
   require 'pp'
   pp ENV
   sh 'apt install -y snapcraft'
-
+  sh 'apt purge -y libwrap0' # We need this staged, so it mustn't be installed!
 
   # Build the runtime content-snap.
   sh 'snapcraft clean || true'

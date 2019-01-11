@@ -250,6 +250,7 @@ class SnapcraftConfig
           -usr/lib/*/*.a
           -usr/lib/*/*.pri
           -usr/share/kf5/kdoctools/*
+          -usr/bin/make
         )
       }
       @stage = %w[

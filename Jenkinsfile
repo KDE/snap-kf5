@@ -1,5 +1,5 @@
 env.DIST = 'bionic'
-env.TYPE = 'user'
+env.TYPE = 'unstable'
 env.PWD_BIND = '/workspace'
 
 cleanNode('cloud && amd64') {

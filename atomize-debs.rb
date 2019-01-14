@@ -512,8 +512,6 @@ integration.configflags = %w(
 )
 integration.plugin = 'cmake'
 integration.source = 'https://anongit.kde.org/plasma-integration.git'
-# FIXME: temporary for testing new settings portal support
-integration.source_branch = 'jgrulich/portal-support'
 config.parts['plasma-integration'] = integration
 
 puts File.write('snapcraft.yaml', YAML.dump(config, indentation: 4))

@@ -389,6 +389,8 @@ parts = [nil] + parts
 # Notable exception: ssl (multiple versions available)
 devs = %w[libxml2-dev libxslt-dev liblcms2-dev libpng-dev libexiv2-dev
           libjpeg-dev]
+# make sure we have gettext available for l10n use
+devs += %w[gettext]
 # mesa-utils-extra - es2_info useful to debug GL problems.
 runs = %w[mesa-utils-extra]
 # GStreamer plugins

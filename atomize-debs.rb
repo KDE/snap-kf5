@@ -380,7 +380,14 @@ qtwebengine qtwebsockets qtx11extras qtxmlpatterns).collect { |x| x += '-opensou
 parts = [nil] + parts
 # parts += [nil]
 
-devs = []
+# Stuff which is (transitively) pulled into the runtime but not in the devs.
+# This usually shows up in production as libfoo.so.x.y being in the runtime but
+# the headers not being in the sdk. This causes trouble as there is a divide
+# between binary-in runtime and the dev headers staged by an app that wants to
+# use these libraries. So, it's generally smart to pack them in the sdk even
+# though they are not strictly frameworks.
+# Notable exception: ssl (multiple versions available)
+devs = %w[libxml2-dev libxslt-dev]
 # mesa-utils-extra - es2_info useful to debug GL problems.
 runs = %w[mesa-utils-extra]
 # GStreamer plugins

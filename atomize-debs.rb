@@ -387,7 +387,8 @@ parts = [nil] + parts
 # use these libraries. So, it's generally smart to pack them in the sdk even
 # though they are not strictly frameworks.
 # Notable exception: ssl (multiple versions available)
-devs = %w[libxml2-dev libxslt-dev]
+devs = %w[libxml2-dev libxslt-dev liblcms2-dev libpng-dev libexiv2-dev
+          libjpeg-dev]
 # mesa-utils-extra - es2_info useful to debug GL problems.
 runs = %w[mesa-utils-extra]
 # GStreamer plugins

@@ -1,5 +1,8 @@
 env.DIST = 'bionic'
-env.TYPE = 'unstable'
+env.TYPE = 'user'
+if (env.JOB_NAME.contains('edge')) {
+    env.TYPE = 'unstable'
+}
 env.PWD_BIND = '/workspace'
 
 cleanNode('cloud && amd64') {

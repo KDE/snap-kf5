@@ -1,9 +1,14 @@
 ENV['LANG'] = 'C.UTF-8'
 
-# FIXME: this needs to be release before pushing this to stable!!!
+REPO = 'release'
+TARGET_CHANNEL = 'candidate'
+if ENV.fetch('TYPE') == 'unstable'
+  REPO = 'dev/unstable'
+  TARGET_CHANNEL = 'edge'
+end
 SOURCES = [
-  'deb http://archive.neon.kde.org/dev/unstable bionic main',
-  'deb-src http://archive.neon.kde.org/dev/unstable bionic main'
+  "deb http://archive.neon.kde.org/#{REPO} bionic main",
+  "deb-src http://archive.neon.kde.org/#{REPO} bionic main"
 ].freeze
 
 def alias_task(name, old_name)
@@ -70,6 +75,6 @@ task :publish do
   FileUtils.cp('snapcraft.cfg', "#{cfgdir}/snapcraft.cfg", verbose: true)
   Dir.glob('**/*.snap').each do |snap|
     # FIXME: MIND CHANGING TO USER TYPE before switching to stable channel!
-    sh "snapcraft push #{snap} --release edge"
+    sh "snapcraft push #{snap} --release #{TARGET_CHANNEL}"
   end
 end

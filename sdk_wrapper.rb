@@ -31,6 +31,13 @@ STATIC_EXES = %w[
   /workspace/build/parts/kf5/build/usr/bin/qmlcachegen
 ].freeze
 
+# qmake has a hack applied by debian where they actually hijack the symlink
+# sequence and direct it to some wrapper script which hardcodes paths. Don't
+# use this and instead force symlinks to go to the correct helper.
+SHODDY_SYMLINK_MANGLER = {
+  'x86_64-linux-gnu-qmake' => 'qmake'
+}
+
 configs = []
 Dir.chdir('usr/lib/x86_64-linux-gnu/cmake/') do
   Dir.glob('*/*Config.cmake').each do |config_file|
@@ -113,6 +120,17 @@ EOF
       # foo ->wraps-> snap-sdk-wrappers/foo ->symlinks-> foo.orig
 
       FileUtils.mv(exe, orig_exe, verbose: true)
+
+      if File.symlink?(orig_exe)
+        target = File.readlink(orig_exe)
+        basename = File.basename(target)
+        mangle = SHODDY_SYMLINK_MANGLER[basename]
+        next unless mangle
+
+        mangled_target = "#{File.dirname(target)}/#{mangle}"
+        FileUtils.rm(orig_exe, verbose: true)
+        FileUtils.ln_s(mangled_target, orig_exe, verbose: true)
+      end
 
       basename = File.basename(exe)
       dir = File.dirname(exe)

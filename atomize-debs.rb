@@ -492,7 +492,7 @@ breeze.configflags = %w(
   -DWITH_DECORATIONS=OFF
 )
 breeze.plugin = 'cmake'
-breeze.source = 'http://download.kde.org/stable/plasma/5.14.3/breeze-5.14.3.tar.xz'
+breeze.source = 'https://anongit.kde.org/breeze.git'
 config.parts['breeze'] = breeze
 
 integration = SnapcraftConfig::Part.new

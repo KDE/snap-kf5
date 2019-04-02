@@ -461,6 +461,8 @@ dev.prime = ['-*']
 dev.after = %w(kf5)
 config.parts['kf5-dev'] = dev
 
+# The real breeze from neon depends on Qt4 integration still, so
+# we want our own build to keep Qt4 out of the snap.
 breeze = SnapcraftConfig::Part.new
 breeze.after = %w(kf5-dev)
 breeze.build_packages = %w(

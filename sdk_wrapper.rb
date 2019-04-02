@@ -25,6 +25,8 @@ require 'tmpdir'
 
 require 'tty/command'
 
+ENV['KF5_SNAP_WRAPPING'] = '1'
+
 # qmlcachegen for reasons beyond me is not actually an imported target but
 # set as a variable and then directly passed into execute_process.
 STATIC_EXES = %w[
@@ -139,30 +141,35 @@ EOF
       FileUtils.mkpath(wrapped_dir, verbose: true)
       FileUtils.ln_s("../#{basename}.orig", wrapped_exe, verbose: true)
 
-      File.write(exe, <<-EOF)
+      File.write(exe, <<-WRAPPER)
 #!/bin/bash
 
-SNAP=/snap/kde-frameworks-5-core18-sdk/current
-ARCH=x86_64-linux-gnu
+# Only wrap the execution iff we aren't currently in the process of wrapping,
+# otherwise we'd break cmake running during the build as the environment
+# for the wrap is not actually valid yet.
+if [ -z "$KF5_SNAP_WRAPPING" ]; then
+  SNAP=/snap/kde-frameworks-5-core18-sdk/current
+  ARCH=x86_64-linux-gnu
 
-# Used by e.g. meinproc to locate XML assets at build-time
-export XDG_DATA_DIRS=$SNAP/usr/local/share:$SNAP/usr/share:$XDG_DATA_DIRS:/usr/share:/usr/local/share
-# Used by qtchooser to locate its configs.
-export XDG_CONFIG_DIRS=$SNAP/etc/xdg:/etc/xdg
+  # Used by e.g. meinproc to locate XML assets at build-time
+  export XDG_DATA_DIRS=$SNAP/usr/local/share:$SNAP/usr/share:$XDG_DATA_DIRS:/usr/share:/usr/local/share
+  # Used by qtchooser to locate its configs.
+  export XDG_CONFIG_DIRS=$SNAP/etc/xdg:/etc/xdg
 
-export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH:$SNAP/usr/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/qt5/libs:$LD_LIBRARY_PATH:$LD_LIBRARY_PATH
-export PATH=$SNAP/bin:$SNAP/sbin:$SNAP/usr/bin:$KF5/usr/sbin:$PATH
+  export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH:$SNAP/usr/lib:$LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/qt5/libs:$LD_LIBRARY_PATH:$LD_LIBRARY_PATH
+  export PATH=$SNAP/bin:$SNAP/sbin:$SNAP/usr/bin:$KF5/usr/sbin:$PATH
 
-# Pulseaudio plugins [pulseaudi-common is a link-time requirement for symbols]
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP/usr/lib/$ARCH/pulseaudio
+  # Pulseaudio plugins [pulseaudi-common is a link-time requirement for symbols]
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP/usr/lib/$ARCH/pulseaudio
 
-# qtchooser hardcodes the global path, ignore it, it's always wrong!
-export QTCHOOSER_NO_GLOBAL_DIR=1
-export QT_SELECT=5
+  # qtchooser hardcodes the global path, ignore it, it's always wrong!
+  export QTCHOOSER_NO_GLOBAL_DIR=1
+  export QT_SELECT=5
+fi
 
 exec $(dirname "$0")/snap-sdk-wrappers/#{basename} "$@"
-      EOF
+      WRAPPER
       FileUtils.chmod(0o0755, exe, verbose: true)
 
       wrapped_exes << exe

@@ -358,10 +358,11 @@ parts = %w(extra-cmake-modules kcoreaddons) + # kdesupport/polkit-qt-1
            ksyntax-highlighting
            krunner kwayland baloo)
            # plasma-integration) # extra integration pulls in breeze pulls in kde4/qt4
-parts += %w(qtwebkit qtbase qtdeclarative qtgraphicaleffects qtlocation
-qtmultimedia qtquickcontrols qtquickcontrols2 qtscript qtsensors qtserialport
-qtsvg qttools qttranslations qtvirtualkeyboard qtwayland qtwebchannel
-qtwebengine qtwebsockets qtx11extras qtxmlpatterns).collect { |x| x += '-opensource-src' }
+parts += %w[qtwebkit qtbase qtdeclarative qtgraphicaleffects qtlocation
+            qtmultimedia qtquickcontrols qtquickcontrols2 qtscript qtsensors
+            qtserialport qtsvg qttools qttranslations qtvirtualkeyboard
+            qtwayland qtwebchannel qtwebengine qtwebsockets qtx11extras
+            qtxmlpatterns qtconnectivity].collect { |x| x + '-opensource-src' }
 #
 # oxygen-icons5 only one icon set
 # Not Runtime Relevant! FIXME: need to seperate these out to only end up in -dev but not content!

@@ -462,6 +462,42 @@ dev.prime = ['-*']
 dev.after = %w(kf5)
 config.parts['kf5-dev'] = dev
 
+# The real breeze from neon depends on Qt4 integration still, so
+# we want our own build to keep Qt4 out of the snap.
+breeze = SnapcraftConfig::Part.new
+breeze.after = %w(kf5-dev)
+breeze.build_packages = %w(
+  pkg-config
+  libx11-dev
+  extra-cmake-modules
+  qtbase5-dev
+  libkf5config-dev
+  libkf5configwidgets-dev
+  libkf5windowsystem-dev
+  libkf5i18n-dev
+  libkf5coreaddons-dev
+  libkf5guiaddons-dev
+  libqt5x11extras5-dev
+  libkf5style-dev
+  libkf5kcmutils-dev
+  kwayland-dev
+  libkf5package-dev
+  libfftw3-dev
+  gettext
+)
+breeze.configflags = %w(
+  -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  -DCMAKE_INSTALL_PREFIX=/usr
+  -DCMAKE_BUILD_TYPE=Release
+  -DENABLE_TESTING=OFF
+  -DBUILD_TESTING=OFF
+  -DKDE_SKIP_TEST_SETTINGS=ON
+  -DWITH_DECORATIONS=OFF
+)
+breeze.plugin = 'cmake'
+breeze.source = 'https://anongit.kde.org/breeze.git'
+config.parts['breeze'] = breeze
+
 integration = SnapcraftConfig::Part.new
 integration.after = %w(kf5-dev breeze)
 integration.build_packages = %w(

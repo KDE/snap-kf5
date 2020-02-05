@@ -496,6 +496,7 @@ breeze.configflags = %w(
 )
 breeze.plugin = 'cmake'
 breeze.source = 'https://anongit.kde.org/breeze.git'
+breeze.source_branch = 'Plasma/5.18'
 config.parts['breeze'] = breeze
 
 integration = SnapcraftConfig::Part.new
@@ -525,7 +526,7 @@ integration.configflags = %w(
 )
 integration.plugin = 'cmake'
 integration.source = 'https://anongit.kde.org/plasma-integration.git'
-integration.source_branch = 'Plasma/5.17'
+integration.source_branch = 'Plasma/5.18'
 config.parts['plasma-integration'] = integration
 
 puts File.write('snapcraft.yaml', YAML.dump(config, indentation: 4))

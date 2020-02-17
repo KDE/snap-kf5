@@ -311,7 +311,7 @@ class SnapcraftConfig
 end
 
 config = SnapcraftConfig.new
-config.name = 'kde-frameworks-5-core18'
+config.name = 'kde-frameworks-5-qt-5-14-core18'
 config.version = 'unknown'
 config.summary = 'KDE Frameworks 5'
 config.description = 'KDE Frameworks are addons and useful extensions to Qt'
@@ -320,10 +320,10 @@ config.grade = 'stable'
 config.base = 'core18'
 
 slot = SnapcraftConfig::Slot.new
-slot.content = 'kde-frameworks-5-core18-all'
+slot.content = 'kde-frameworks-5-qt-5-14-core18-all'
 slot.interface = 'content'
 slot.read = %w[.]
-config.slots['kde-frameworks-5-core18-slot'] = slot
+config.slots['kde-frameworks-5-qt-5-14-core18-slot'] = slot
 
 # These are only old versions! The new version is created later after we know
 # the current versions of the content.
@@ -500,7 +500,7 @@ puts File.write('stage-dev.json', JSON.generate(runs + devs))
 
 ### build snap
 
-config.name = 'kde-frameworks-5-core18-sdk'
+config.name = 'kde-frameworks-5-qt-5-14-core18-sdk'
 # We mustn't define the slots in the SDK, it'd confuse snapd on what to
 # autoconnect when both snaps are installed.
 config.slots.clear

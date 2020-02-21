@@ -148,7 +148,7 @@ EOF
 # otherwise we'd break cmake running during the build as the environment
 # for the wrap is not actually valid yet.
 if [ -z "$KF5_SNAP_WRAPPING" ]; then
-  SNAP=/snap/kde-frameworks-5-core18-sdk/current
+  SNAP=/snap/kde-frameworks-5-qt-5-14-core18-sdk/current
   ARCH=x86_64-linux-gnu
 
   # Used by e.g. meinproc to locate XML assets at build-time

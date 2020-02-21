@@ -182,8 +182,8 @@ end
 qtchooser_config_dir = '/workspace/build/parts/kf5/build/etc/xdg/qtchooser/'
 FileUtils.mkpath(qtchooser_config_dir)
 File.write("#{qtchooser_config_dir}/default.conf", <<-CONF)
-/snap/kde-frameworks-5-core18-sdk/current/usr/lib/qt5/bin
-/snap/kde-frameworks-5-core18-sdk/current/usr/lib/x86_64-linux-gnu
+/snap/kde-frameworks-5-qt-5-14-core18-sdk/current/usr/lib/qt5/bin
+/snap/kde-frameworks-5-qt-5-14-core18-sdk/current/usr/lib/x86_64-linux-gnu
 CONF
 FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/qt5.conf")
 FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/5.conf")

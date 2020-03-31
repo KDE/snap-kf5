@@ -361,7 +361,7 @@ parts = %w(extra-cmake-modules kcoreaddons) + # kdesupport/polkit-qt-1
 parts += %w[qtwebkit qtbase qtdeclarative qtgraphicaleffects qtlocation
             qtmultimedia qtquickcontrols qtquickcontrols2 qtscript qtsensors
             qtserialport qtsvg qttools qttranslations qtvirtualkeyboard
-            qtwayland qtwebchannel qtwebengine qtwebsockets qtx11extras
+            qtwayland qtwebchannel qtwebengine qtwebsockets qtwebview qtx11extras
             qtxmlpatterns qtconnectivity].collect { |x| x + '-opensource-src' }
 #
 # oxygen-icons5 only one icon set

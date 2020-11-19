@@ -311,19 +311,19 @@ class SnapcraftConfig
 end
 
 config = SnapcraftConfig.new
-config.name = 'kde-frameworks-5-qt-5-14-core18'
+config.name = 'kde-frameworks-5-qt-5-15-core20'
 config.version = 'unknown'
 config.summary = 'KDE Frameworks 5'
 config.description = 'KDE Frameworks are addons and useful extensions to Qt'
 config.confinement = 'strict'
 config.grade = 'stable'
-config.base = 'core18'
+config.base = 'core20'
 
 slot = SnapcraftConfig::Slot.new
-slot.content = 'kde-frameworks-5-qt-5-14-core18-all'
+slot.content = 'kde-frameworks-5-qt-5-15-core20-all'
 slot.interface = 'content'
 slot.read = %w[.]
-config.slots['kde-frameworks-5-qt-5-14-core18-slot'] = slot
+config.slots['kde-frameworks-5-qt-5-15-core20-slot'] = slot
 
 # These are only old versions! The new version is created later after we know
 # the current versions of the content.
@@ -422,7 +422,7 @@ end
 # This is the only way we can version a content snap.
 kf5_version = 'kde-frameworks-' + kf5_version.split('.')[0..1].join('-')
 qt5_version = 'qt-' + qt5_version.split('.')[0..1].join('-')
-platform_version = 'core18'
+platform_version = 'core20'
 
 latest_version = [kf5_version, qt5_version, platform_version].join('-')
 # Dump the latest interface. The application builds will pick this up and
@@ -500,7 +500,7 @@ puts File.write('stage-dev.json', JSON.generate(runs + devs))
 
 ### build snap
 
-config.name = 'kde-frameworks-5-qt-5-14-core18-sdk'
+config.name = 'kde-frameworks-5-qt-5-15-core20-sdk'
 # We mustn't define the slots in the SDK, it'd confuse snapd on what to
 # autoconnect when both snaps are installed.
 config.slots.clear

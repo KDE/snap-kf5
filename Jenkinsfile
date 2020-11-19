@@ -1,4 +1,4 @@
-env.DIST = 'bionic'
+env.DIST = 'focal'
 env.TYPE = 'user'
 if (env.JOB_NAME.contains('edge')) {
     env.TYPE = 'unstable'

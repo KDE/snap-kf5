@@ -7,8 +7,8 @@ if ENV.fetch('TYPE') == 'unstable'
   TARGET_CHANNEL = 'edge'
 end
 SOURCES = [
-  "deb http://archive.neon.kde.org/#{REPO} bionic main",
-  "deb-src http://archive.neon.kde.org/#{REPO} bionic main"
+  "deb http://archive.neon.kde.org/#{REPO} focal main",
+  "deb-src http://archive.neon.kde.org/#{REPO} focal main"
 ].freeze
 
 def alias_task(name, old_name)

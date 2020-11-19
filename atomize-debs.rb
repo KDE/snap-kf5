@@ -489,8 +489,8 @@ integration.configflags = %w(
   -DKDE_SKIP_TEST_SETTINGS=ON
 )
 integration.plugin = 'cmake'
-integration.source = 'https://anongit.kde.org/plasma-integration.git'
-integration.source_branch = 'Plasma/5.18'
+integration.source = 'https://invent.kde.org/plasma/plasma-integration.git'
+integration.source_branch = 'Plasma/5.20'
 config.parts['plasma-integration'] = integration
 
 puts File.write('snapcraft.yaml', YAML.dump(config, indentation: 4))

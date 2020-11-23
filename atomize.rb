@@ -43,7 +43,7 @@ class SnapcraftConfig
     # String
     attr_accessor :source
     # Array<String>
-    attr_accessor :configflags
+    attr_accessor :cmake_parameters
     # Array<String>
     attr_accessor :build_packages
     # Array<String>
@@ -57,7 +57,7 @@ class SnapcraftConfig
       @after = []
       @plugin = 'cmake'
       @source = nil
-      @configflags = %w(
+      @cmake_parameters = %w(
         -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
         -DCMAKE_INSTALL_PREFIX=/usr
         -DCMAKE_BUILD_TYPE=Debug
@@ -82,7 +82,7 @@ class SnapcraftConfig
     def encode_with(c)
       return unless @plugin == 'nil' || @plugin.nil?
       p c
-      # c['configflags']
+      # c['cmake-parameters']
     end
   end
 
@@ -113,14 +113,6 @@ class SnapcraftConfig
   end
 end
 
-config = SnapcraftConfig.new
-config.name = 'kde-frameworks-5'
-config.version = '5.30'
-config.summary = 'KDE Frameworks 5'
-config.description = 'KDE Frameworks are addons and useful extensions to Qt'
-config.confinement = 'devmode'
-config.grade = 'stable'
-
 slot = SnapcraftConfig::Slot.new
 slot.content = 'kde-frameworks-5-all'
 slot.interface = 'content'
@@ -150,7 +142,7 @@ parts.each_cons(2) do |first_name, second_name|
   next unless second_name # first item is nil
   part = SnapcraftConfig::Part.new
   part.after = [first_name] if first_name # last item is also nil
-  part.source = "http://download.kde.org/stable/frameworks/5.26/#{second_name}-5.26.0.tar.xz"
+  part.source = "http://download.kde.org/stable/frameworks/5.76/#{second_name}-5.76.0.tar.xz"
   config.parts[second_name] = part
 end
 

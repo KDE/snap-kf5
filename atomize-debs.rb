@@ -291,6 +291,18 @@ class SnapcraftConfig
     attr_accessor :read
   end
 
+  class PackageRepository
+    extend AttrRecorder
+    prepend YamlAttributer
+
+    attr_accessor :type
+    attr_accessor :components
+    attr_accessor :suites
+    attr_accessor :key_id
+    attr_accessor :url
+    attr_accessor :key_server
+  end
+
   extend AttrRecorder
   prepend YamlAttributer
 
@@ -301,12 +313,14 @@ class SnapcraftConfig
   attr_accessor :confinement
   attr_accessor :grade
   attr_accessor :slots
+  attr_accessor :package_repositories
   attr_accessor :parts
   attr_accessor :base
 
   def initialize
     @parts = {}
     @slots = {}
+    @package_repositories = []
   end
 end
 
@@ -324,6 +338,15 @@ slot.content = 'kde-frameworks-5-qt-5-15-core20-all'
 slot.interface = 'content'
 slot.read = %w[.]
 config.slots['kde-frameworks-5-qt-5-15-core20-slot'] = slot
+
+package_repo = SnapcraftConfig::PackageRepository.new
+package_repo.type = 'apt'
+package_repo.components = %w[main]
+package_repo.suites = %w[focal]
+package_repo.key_id = '444DABCF3667D0283F894EDDE6D4736255751E5D'
+package_repo.url = 'http://archive.neon.kde.org/user'
+package_repo.key_server = 'keyserver.ubuntu.com'
+config.package_repositories.push(package_repo)
 
 # These are only old versions! The new version is created later after we know
 # the current versions of the content.
@@ -395,7 +418,7 @@ devs += %w[gettext]
 # mesa-utils-extra - es2_info useful to debug GL problems.
 runs = %w[mesa-utils-extra]
 # GStreamer plugins
-runs += %w[gstreamer1.0-fluendo-mp3 gstreamer1.0-x gstreamer1.0-plugins-base
+runs += %w[gstreamer1.0-x gstreamer1.0-plugins-base
            gstreamer1.0-pulseaudio gstreamer1.0-plugins-good]
 # For on-demand locale generation we need the raw data to generate locales from.
 runs += %w[locales libc-bin]

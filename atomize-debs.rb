@@ -195,7 +195,7 @@ class SnapcraftConfig
     #   it in #encode_with!
     attr_writer :source
     attr_writer :source_branch
-    attr_writer :configflags
+    attr_writer :cmake_parameters
 
     def initialize
       @after = []
@@ -269,7 +269,7 @@ class SnapcraftConfig
 
     def encode_with(c)
       if @plugin != 'nil'
-        c['configflags'] = @configflags if @configflags
+        c['cmake-parameters'] = @cmake_parameters if @cmake_parameters
         c['source'] = @source
         # Slap in all source_* attributes for good measure.
         instance_variables.each do |v|
@@ -480,7 +480,7 @@ integration.build_packages = %w(
                qtbase5-private-dev
                breeze-dev
 )
-integration.configflags = %w(
+integration.cmake_parameters = %w(
   -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
   -DCMAKE_INSTALL_PREFIX=/usr
   -DCMAKE_BUILD_TYPE=Release

@@ -5,7 +5,7 @@ if (env.JOB_NAME.contains('edge')) {
 }
 env.PWD_BIND = '/workspace'
 
-cleanNode('cloud && amd64') {
+cleanNode('cloud && amd64-snap') {
   stage('generate') {
     checkout scm
     sh '~/tooling/nci/contain.rb rake generate'

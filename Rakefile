@@ -37,7 +37,7 @@ task :generate => '/etc/apt/sources.list.d/neon.list' do
   ruby 'atomize-debs.rb'
 end
 
-task :snapcraft => '/etc/apt/sources.list.d/neon.list' do
+task :snapcraft do
   require 'pp'
   pp ENV
   sh 'apt install -y snapcraft'

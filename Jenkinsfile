@@ -19,7 +19,7 @@ cleanNode('cloud && amd64') {
   stage('snapcraft') {
     try {
       sh 'ls -lahR'
-      sh '~/tooling/nci/contain.rb rake snapcraft'
+      sh 'rake snapcraft'
     } finally {
       // Fix permissions, for some reason breeze' source is chowned to 1000.
       // That isn't even a legit user though.

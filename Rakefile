@@ -42,7 +42,7 @@ task :snapcraft do
   require 'pp'
   pp ENV
   # Build the runtime content-snap.
-  sh 'pwd`'
+  sh 'pwd'
   sh 'cd ' + Dir.home
   sh 'snapcraft --version'
   sh 'snapcraft clean || true'

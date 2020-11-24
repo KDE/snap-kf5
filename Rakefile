@@ -40,9 +40,6 @@ end
 task :snapcraft do
   require 'pp'
   pp ENV
-  sh 'apt install -y snapcraft'
-  sh 'apt purge -y libwrap0' # We need this staged, so it mustn't be installed!
-
   # Build the runtime content-snap.
   sh 'snapcraft --version'
   sh 'snapcraft clean || true'

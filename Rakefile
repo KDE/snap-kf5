@@ -1,4 +1,5 @@
 ENV['LANG'] = 'C.UTF-8'
+ENV['HOME'] = '/home/jenkins-slave'
 
 REPO = 'release'
 TARGET_CHANNEL = 'candidate'

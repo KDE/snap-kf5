@@ -43,7 +43,7 @@ task :snapcraft do
   pp ENV
   # Build the runtime content-snap.
   sh 'pwd'
-  sh 'cd ' + Dir.home
+  sh 'cd ' + Dir.home + '/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/'
   sh 'snapcraft --version'
   sh 'snapcraft clean || true'
   sh 'snapcraft --enable-experimental-package-repositories --debug'

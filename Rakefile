@@ -62,7 +62,7 @@ task :snapcraft do
     #data.gsub!('self._is_classic = confinement == "classic"', 'self._is_classic = True')
     #File.write('/usr/lib/python3/dist-packages/snapcraft/internal/pluginhandler/_patchelf.py', data)
     sh 'snapcraft clean || true'
-    sh 'snapcraft --debug'
+    sh 'snapcraft --enable-experimental-package-repositories --debug'
   end
 
   # Generate metadata so we can manipulate our app snaps from including

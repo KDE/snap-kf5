@@ -412,7 +412,7 @@ parts = [nil] + parts
 # though they are not strictly frameworks.
 # Notable exception: ssl (multiple versions available)
 devs = %w[libxml2-dev libxslt-dev liblcms2-dev libpng-dev libexiv2-dev
-          libjpeg-dev freeglut3-dev]
+          libjpeg-dev freeglut3-dev freeglut3]
 # make sure we have gettext available for l10n use
 devs += %w[gettext]
 # mesa-utils-extra - es2_info useful to debug GL problems.

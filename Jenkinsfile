@@ -19,6 +19,7 @@ cleanNode('cloud && amd64-snap') {
   stage('snapcraft') {
     try {
       sh 'ls -lahR'
+      sh 'echo --groups--'; sh 'groups'
       sh 'rake snapcraft'
     } finally {
       // Fix permissions, for some reason breeze' source is chowned to 1000.

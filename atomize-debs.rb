@@ -182,7 +182,7 @@ class SnapcraftConfig
     # Hash<String, String>
     attr_accessor :organize
     # String script
-    attr_accessor :prepare
+    attr_accessor :override_build
     # String script
     attr_accessor :build
     # String script
@@ -541,7 +541,7 @@ sdk.stage += %w[
   -usr/lib/*/dri/*
 ]
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
-sdk.prepare = 'pwd; /workspace/sdk_wrapper.rb'
+sdk.override_build = "pwd; /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/sdk_wrapper.rb\nsnapcraftctl build"
 sdk.prime = nil
 sdk.filesets = nil
 config.parts['kf5'] = sdk

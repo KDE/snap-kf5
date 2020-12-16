@@ -63,6 +63,7 @@ task :snapcraft do
     #data.gsub!('logger.debug', 'logger.warning')
     #data.gsub!('self._is_classic = confinement == "classic"', 'self._is_classic = True')
     #File.write('/usr/lib/python3/dist-packages/snapcraft/internal/pluginhandler/_patchelf.py', data)
+    sh 'echo -- building sdk--'
     sh 'sudo chown jenkins-slave.jenkins-slave /var/snap/multipass/common/multipass_socket'
     sh 'ls -l /var/snap/multipass/common/multipass_socket'
     sh 'snapcraft clean || true'

@@ -527,24 +527,16 @@ config.name = 'kde-frameworks-5-qt-5-15-core20-sdk'
 # We mustn't define the slots in the SDK, it'd confuse snapd on what to
 # autoconnect when both snaps are installed.
 config.slots.clear
-# Wipe parts, we'll set new ones.
-config.parts.clear
 
-sdk = SnapcraftConfig::Part.new
-sdk.plugin = 'dump'
-sdk.source = '../stage'
-sdk.stage += %w[
-  -usr/share/emoticons/*
-  -usr/share/icons/*
-  -usr/share/locale/*/LC_*/*
-  -usr/share/qt5/translations/*
-  -usr/lib/*/dri/*
-]
+config.parts['kf5'].prime = nil
+
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
-sdk.override_build = "pwd; /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/sdk_wrapper.rb\nsnapcraftctl build"
-sdk.prime = nil
-sdk.filesets = nil
-config.parts['kf5'] = sdk
+config.parts['kf5'].override_build = "pwd; /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/sdk_wrapper.rb\nsnapcraftctl build"
+
+config.parts['kf5-dev'].prime = nil
+
+# wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
+config.parts['kf5-dev'].override_build = "pwd; /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/sdk_wrapper.rb\nsnapcraftctl build"
 
 FileUtils.mkpath('build')
 puts File.write('build/snapcraft.yaml', YAML.dump(config, indentation: 4))

@@ -9,7 +9,8 @@ cleanNode('cloud && amd64-snap') {
   stage('generate') {
     checkout scm
     sh '~/tooling/nci/contain.rb rake generate'
-    sh "echo '----snapcraft----'; cat snapcraft.yaml; echo '----snapcraft----'"
+    sh "echo '----snapcraft----'; cat snapcraft.yaml; echo '---- done snapcraft ----'"
+    sh "echo '----snapcraft sdk----'; cat build/snapcraft.yaml; echo '---- done snapcraft sdk ----'"
     copyArtifacts projectName: env.JOB_NAME, filter: 'content.json, versions.json', optional: true
     // This should really be pushed into git, alas, somewhat tricky because github
     // and pipeline git plugin can't push on its own.

@@ -49,9 +49,12 @@ task :snapcraft do
   Dir.chdir(Dir.home + '/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/')
   sh 'sudo chown jenkins-slave.jenkins-slave /var/snap/multipass/common/multipass_socket'
   sh 'ls -l /var/snap/multipass/common/multipass_socket'
+  sh 'sudo chown jenkins-slave /var/snap/lxd/common/lxd/unix.socket'
+  sh 'lxd init --auto'
+  sh 'lxd exec'
   sh 'snapcraft --version'
   sh 'snapcraft clean || true'
-  sh 'snapcraft --enable-experimental-package-repositories --debug'
+  sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
 
   # And now build the sdk build-snap (dumps stage into a separate snap)
   # FileUtils.cp('build.snapcraft.yaml', 'snapcraft.yaml')
@@ -66,8 +69,11 @@ task :snapcraft do
     sh 'echo -- building sdk--'
     sh 'sudo chown jenkins-slave.jenkins-slave /var/snap/multipass/common/multipass_socket'
     sh 'ls -l /var/snap/multipass/common/multipass_socket'
+    sh 'lxc file push sdk_wrapper.rb snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
     sh 'snapcraft clean || true'
-    sh 'snapcraft --enable-experimental-package-repositories --debug'
+    sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
+    sh 'lxc file push sdk_wrapper.rb snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
+    sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
   end
 
   # Generate metadata so we can manipulate our app snaps from including

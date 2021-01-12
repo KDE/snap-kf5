@@ -422,6 +422,7 @@ runs += %w[gstreamer1.0-x gstreamer1.0-plugins-base
            gstreamer1.0-pulseaudio gstreamer1.0-plugins-good]
 # For on-demand locale generation we need the raw data to generate locales from.
 runs += %w[locales libc-bin]
+runs += %w[gettext libdrm-dev]
 
 kf5_version = nil
 qt5_version = nil

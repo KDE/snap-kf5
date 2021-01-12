@@ -30,7 +30,7 @@ ENV['KF5_SNAP_WRAPPING'] = '1'
 # qmlcachegen for reasons beyond me is not actually an imported target but
 # set as a variable and then directly passed into execute_process.
 STATIC_EXES = %w[
-  /workspace/build/parts/kf5/build/usr/bin/qmlcachegen
+  /root/parts/kf5-dev/install/usr/bin/qmlcachegen
 ].freeze
 
 # qmake has a hack applied by debian where they actually hijack the symlink
@@ -179,7 +179,7 @@ end
 
 # Set suitable qtchooser configs (the pertinent XDG_ variable is set
 # by the wrapper),
-qtchooser_config_dir = '/workspace/build/parts/kf5/build/etc/xdg/qtchooser/'
+qtchooser_config_dir = '/root/build/parts/kf5/build/etc/xdg/qtchooser/'
 FileUtils.mkpath(qtchooser_config_dir)
 File.write("#{qtchooser_config_dir}/default.conf", <<-CONF)
 /snap/kde-frameworks-5-qt-5-14-core18-sdk/current/usr/lib/qt5/bin

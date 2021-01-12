@@ -187,3 +187,10 @@ File.write("#{qtchooser_config_dir}/default.conf", <<-CONF)
 CONF
 FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/qt5.conf", force: true)
 FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/5.conf", force: true)
+FileUtils.mkpath('/etc/xdg/qtchooser/', verbose: true)
+File.write("/etc/xdg/qtchooser/default.conf", <<-CONF)
+/usr/lib/qt5/bin
+/usr/lib/x86_64-linux-gnu
+CONF
+FileUtils.ln_s('default.conf', "/etc/xdg/qtchooser/qt5.conf", force: true)
+FileUtils.ln_s('default.conf', "/etc/xdg/qtchooser/5.conf", force: true)

@@ -41,7 +41,7 @@ SHODDY_SYMLINK_MANGLER = {
 }
 
 configs = []
-Dir.chdir('usr/lib/x86_64-linux-gnu/cmake/') do
+Dir.chdir('/usr/lib/x86_64-linux-gnu/cmake/') do
   Dir.glob('*/*Config.cmake').each do |config_file|
     config = config_file.split('/')[-1]
     configs << config.sub('Config.cmake', '')

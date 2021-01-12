@@ -51,7 +51,7 @@ task :snapcraft do
   sh 'ls -l /var/snap/multipass/common/multipass_socket'
   sh 'sudo chown jenkins-slave /var/snap/lxd/common/lxd/unix.socket'
   sh 'lxd init --auto'
-  sh 'lxc exec'
+  sh 'lxc file push sdk_wrapper.rb snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
   sh 'snapcraft --version'
   sh 'snapcraft clean || true'
   sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'

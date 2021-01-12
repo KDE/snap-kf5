@@ -481,6 +481,8 @@ dev.stage = (dev.stage + %w[
   -usr/share/locale/*/LC_*/*
   -usr/share/qt5/translations/*
   -usr/lib/*/dri/*
+  -usr/share/qtchooser/qt5-*.conf
+  -usr/lib/*/libexec/kf5/kconf_update
 ]).uniq
 dev.prime = ['-*']
 dev.after = %w(kf5)

@@ -50,7 +50,7 @@ task :snapcraft do
   sh 'sudo chown jenkins-slave.jenkins-slave /var/snap/multipass/common/multipass_socket'
   sh 'ls -l /var/snap/multipass/common/multipass_socket'
   sh 'sudo chown jenkins-slave /var/snap/lxd/common/lxd/unix.socket'
-  sh 'lxc init --auto'
+  sh 'lxd init --auto'
   sh 'lxc exec'
   sh 'snapcraft --version'
   sh 'snapcraft clean || true'

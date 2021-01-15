@@ -70,6 +70,7 @@ task :snapcraft do
     sh 'ls -l /var/snap/multipass/common/multipass_socket'
     sh 'snapcraft clean --use-lxd || true'
     sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
+    sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/sdk_wrapper.sh snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
     sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/sdk_wrapper.rb snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
     sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
   end

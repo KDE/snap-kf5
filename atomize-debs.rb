@@ -533,7 +533,7 @@ config.slots.clear
 
 config.parts['kf5'].prime = nil
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
-config.parts['kf5'].override_build = "pwd; /sdk_wrapper.rb\nsnapcraftctl build"
+config.parts['kf5'].override_build = "pwd; /sdk_wrapper.sh\nsdk_wrapper.rb\nsnapcraftctl build"
 
 config.parts['kf5-dev'].prime = nil
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH

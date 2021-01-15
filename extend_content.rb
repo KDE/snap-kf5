@@ -32,7 +32,7 @@ class Content
   }.freeze
 
   def self.packages_for_part(part)
-    Dir.glob("parts/#{part}/ubuntu/download/*.deb").collect do |debfile|
+    Dir.glob("#{part}/stage_packages/*.deb").collect do |debfile|
       warn debfile
       debfile = File.basename(debfile)
       match = debfile.match(/^(.+)_([^_]+)_([^_]+)\.deb$/) || raise

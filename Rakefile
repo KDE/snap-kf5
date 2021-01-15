@@ -77,6 +77,11 @@ task :snapcraft do
 
   # Generate metadata so we can manipulate our app snaps from including
   # packages which are already in the sdk.
+  sh 'lxc start snapcraft-kde-frameworks-5-qt-5-15-core20-sdk'
+  sh 'mkdir kf5'
+  sh 'mkdir kf5-dev'
+  sh 'lxc file pull --recursive snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/root/parts/kf5/stage_packages/ kf5/'
+  sh 'lxc file pull --recursive snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/root/parts/kf5-dev/stage_packages/ kf5-dev/'
   ruby 'extend_content.rb'
 end
 

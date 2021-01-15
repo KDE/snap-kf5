@@ -41,7 +41,7 @@ cleanNode('cloud && amd64-snap') {
 
 def cleanNode(label = null, body) {
   node(label) {
-    deleteDir()
+    // deleteDir()
     try {
       wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
         wrap([$class: 'TimestamperBuildWrapper']) {

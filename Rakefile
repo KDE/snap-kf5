@@ -92,6 +92,6 @@ task :publish do
   FileUtils.cp('snapcraft.cfg', "#{cfgdir}/snapcraft.cfg", verbose: true)
   Dir.glob('**/*.snap').each do |snap|
     # FIXME: MIND CHANGING TO USER TYPE before switching to stable channel!
-    sh "snapcraft push #{snap} --release #{TARGET_CHANNEL}"
+    sh "snapcraft upload #{snap} --release #{TARGET_CHANNEL}"
   end
 end

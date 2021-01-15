@@ -87,8 +87,6 @@ end
 
 task :publish do
   require 'fileutils'
-  sh 'apt update'
-  sh 'apt install -y snapcraft'
   cfgdir = Dir.home + '/.config/snapcraft'
   FileUtils.mkpath(cfgdir)
   FileUtils.cp('snapcraft.cfg', "#{cfgdir}/snapcraft.cfg", verbose: true)

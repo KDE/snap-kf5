@@ -8,7 +8,7 @@ env.PWD_BIND = '/workspace'
 cleanNode('cloud && amd64-snap') {
   stage('test') {
     withCredentials([file(credentialsId: 'snapcraft.cfg', variable: 'PANGEA_SNAPCRAFT_CFG_FILE')]) {
-      sh 'cp $PANGEA_SNAPCRAFT_CFG_FILE ~/foo/snapcraft.cfg'
+      sh 'cp $PANGEA_SNAPCRAFT_CFG_FILE ~/snapcraft.cfg'
     }
   }
   stage('generate') {

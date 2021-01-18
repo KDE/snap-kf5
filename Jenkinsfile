@@ -34,7 +34,7 @@ cleanNode('cloud && amd64-snap') {
   stage('snapcraft push') {
     withCredentials([file(credentialsId: 'snapcraft.cfg', variable: 'PANGEA_SNAPCRAFT_CFG_FILE')]) {
       sh 'cp $PANGEA_SNAPCRAFT_CFG_FILE snapcraft.cfg'
-      sh '~/tooling/nci/contain.rb rake publish'
+      sh 'rake publish'
     }
   }
 }

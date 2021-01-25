@@ -179,7 +179,7 @@ end
 
 # Set suitable qtchooser configs (the pertinent XDG_ variable is set
 # by the wrapper),
-qtchooser_config_dir = '/root/build/parts/kf5/build/etc/xdg/qtchooser/'
+qtchooser_config_dir = '/root/parts/kf5/build/etc/xdg/qtchooser/'
 FileUtils.mkpath(qtchooser_config_dir)
 File.write("#{qtchooser_config_dir}/default.conf", <<-CONF)
 /snap/kde-frameworks-5-qt-5-15-core20-sdk/current/usr/lib/qt5/bin

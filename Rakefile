@@ -90,6 +90,7 @@ task :publish do
   cfgdir = Dir.home + '/.config/snapcraft'
   FileUtils.mkpath(cfgdir)
   FileUtils.cp('snapcraft.cfg', "#{cfgdir}/snapcraft.cfg", verbose: true)
+  sh 'chmod 644 ~/.config/snapcraft/snapcraft.cfg'
   sh 'pwd'
   pp Dir.glob('**/*snap')
   Dir.glob('**/*.snap').each do |snap|

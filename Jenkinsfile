@@ -9,6 +9,7 @@ cleanNode('cloud && amd64-snap') {
   stage('test') {
     withCredentials([file(credentialsId: 'snapcraft.cfg', variable: 'PANGEA_SNAPCRAFT_CFG_FILE')]) {
       sh 'cp $PANGEA_SNAPCRAFT_CFG_FILE ~/snapcraft.cfg'
+      sh 'chmod 644 ~/snapcraft.cfg'
     }
   }
   stage('generate') {
@@ -39,6 +40,7 @@ cleanNode('cloud && amd64-snap') {
   stage('snapcraft push') {
     withCredentials([file(credentialsId: 'snapcraft.cfg', variable: 'PANGEA_SNAPCRAFT_CFG_FILE')]) {
       sh 'cp $PANGEA_SNAPCRAFT_CFG_FILE snapcraft.cfg'
+      sh 'chmod 644 ~/snapcraft.cfg'
       sh 'rake publish'
     }
   }

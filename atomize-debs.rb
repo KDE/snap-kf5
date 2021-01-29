@@ -533,15 +533,15 @@ config.slots.clear
 
 config.parts['kf5'].prime = nil
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
-config.parts['kf5'].override_build = "pwd; /sdk_wrapper.sh\n/sdk_wrapper.rb\nsnapcraftctl build"
+config.parts['kf5'].override_build = "pwd; /sdk_wrapper.sh kf5\n/sdk_wrapper.rb\nsnapcraftctl build"
 
 config.parts['kf5-dev'].prime = nil
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
-config.parts['kf5-dev'].override_build = "pwd; /sdk_wrapper.rb\nsnapcraftctl build"
+config.parts['kf5-dev'].override_build = "pwd; /sdk_wrapper.rb kf5-dev\nsnapcraftctl build"
 
 config.parts['plasma-integration'].prime = nil
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
-config.parts['plasma-integration'].override_build = "pwd; /sdk_wrapper.rb\nsnapcraftctl build"
+config.parts['plasma-integration'].override_build = "pwd; /sdk_wrapper.rb plasma-integration\nsnapcraftctl build"
 
 FileUtils.mkpath('build')
 puts File.write('build/snapcraft.yaml', YAML.dump(config, indentation: 4))

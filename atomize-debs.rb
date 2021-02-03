@@ -211,7 +211,6 @@ class SnapcraftConfig
           -usr/lib/*/qt5/bin/*cpp*
           -usr/lib/qt5/bin/qtattributionsscanner
           -usr/lib/qt5/bin/qhelpgenerator
-          -usr/lib/qt5/bin/qdoc
           -usr/bin/meinproc5
           -usr/bin/kpackagetool5
           -usr/bin/checkXML5

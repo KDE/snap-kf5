@@ -488,6 +488,12 @@ dev.stage = (dev.stage + %w[
   -usr/lib/*/dri/*
   -usr/share/qtchooser/qt5-*.conf
   -usr/lib/*/libexec/kf5/kconf_update
+  -usr/bin/checkXML5
+  -usr/bin/kpackagetool5
+  -usr/bin/meinproc5
+  -usr/lib/qt5/bin/qdoc
+  -usr/lib/qt5/bin/qhelpgenerator
+  -usr/lib/qt5/bin/qtattributionsscanner
 ]).uniq
 dev.prime = ['-*']
 dev.after = %w(kf5)

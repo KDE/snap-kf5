@@ -471,7 +471,7 @@ devs.delete('qt5-gtk-platformtheme')
 
 part = SnapcraftConfig::Part.new
 part.stage_packages = runs.flatten
-part.stage_packages += %w[
+part.stage_packages = (part.stage_packages + %w[
   -usr/bin/checkXML5
   -usr/bin/kpackagetool5
   -usr/bin/meinproc5

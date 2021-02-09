@@ -169,6 +169,8 @@ class SnapcraftConfig
     attr_accessor :after
     # String
     attr_accessor :plugin
+    # String
+    attr_accessor :build_attributes
     # Array<String>
     attr_accessor :build_packages
     # Array<String>
@@ -200,6 +202,7 @@ class SnapcraftConfig
     def initialize
       @after = []
       @plugin = 'nil'
+      @build_attributes = ['enable-patchelf']
       @build_packages = []
       @stage_packages = []
       @filesets = {

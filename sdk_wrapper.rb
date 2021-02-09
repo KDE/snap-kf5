@@ -30,7 +30,8 @@ ENV['KF5_SNAP_WRAPPING'] = '1'
 # qmlcachegen for reasons beyond me is not actually an imported target but
 # set as a variable and then directly passed into execute_process.
 STATIC_EXES = %w[
-  /root/parts/kf5/install/usr/bin/qmlcachegen
+  /root/parts/kf5-dev/install/usr/bin/qmlcachegen
+  /root/parts/kf5-dev/install/usr/bin/msgfmt
 ].freeze
 
 # qmake has a hack applied by debian where they actually hijack the symlink

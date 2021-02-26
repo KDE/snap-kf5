@@ -47,8 +47,6 @@ task :snapcraft do
   sh 'ls ' + Dir.home
   sh 'ls ' + Dir.home + '/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/'
   Dir.chdir(Dir.home + '/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/')
-  sh 'sudo chown jenkins-slave.jenkins-slave /var/snap/multipass/common/multipass_socket'
-  sh 'ls -l /var/snap/multipass/common/multipass_socket'
   sh 'sudo chown jenkins-slave /var/snap/lxd/common/lxd/unix.socket'
   sh 'lxd init --auto'
   sh 'snapcraft --version'
@@ -66,8 +64,6 @@ task :snapcraft do
     #data.gsub!('self._is_classic = confinement == "classic"', 'self._is_classic = True')
     #File.write('/usr/lib/python3/dist-packages/snapcraft/internal/pluginhandler/_patchelf.py', data)
     sh 'echo -- building sdk--'
-    sh 'sudo chown jenkins-slave.jenkins-slave /var/snap/multipass/common/multipass_socket'
-    sh 'ls -l /var/snap/multipass/common/multipass_socket'
     sh 'snapcraft clean --use-lxd || true'
     sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
     sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/sdk_wrapper.sh snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'

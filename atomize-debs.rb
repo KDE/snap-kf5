@@ -492,7 +492,7 @@ mesapart.prime = %w[
         -usr/share/lintian
         -usr/share/man
         -usr/share/pkgconfig
-]).uniq
+]
 config.parts['mesa'] = mesapart
 
 part = SnapcraftConfig::Part.new

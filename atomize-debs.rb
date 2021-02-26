@@ -472,6 +472,29 @@ end
 runs.delete('qt5-gtk-platformtheme')
 devs.delete('qt5-gtk-platformtheme')
 
+mesapart = SnapcraftConfig::Part.new
+mesapart.stage_packages = ['libgl1-mesa-dri', 'libglx-mesa0']
+mesapart.stage = nil
+mesapart.build_attributes = 'no-patchelf'
+mesapart.filesets = nil
+mesapart.prime = %w[
+        -lib/udev
+        -usr/doc
+        -usr/doc-base
+        -usr/share/applications
+        -usr/share/apport
+        -usr/share/bug
+        -usr/share/doc
+        -usr/share/doc-base
+        -usr/share/icons
+        -usr/share/libdrm
+        -usr/share/libwacom
+        -usr/share/lintian
+        -usr/share/man
+        -usr/share/pkgconfig
+]).uniq
+config.parts['mesa'] = mesapart
+
 part = SnapcraftConfig::Part.new
 part.stage_packages = runs.flatten
 part.stage = (part.stage + %w[

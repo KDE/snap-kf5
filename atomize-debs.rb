@@ -328,7 +328,7 @@ class SnapcraftConfig
 end
 
 config = SnapcraftConfig.new
-config.name = 'kde-frameworks-5-qt-5-15-core20'
+config.name = 'kde-frameworks-5-qt-5-15-3-core20'
 config.version = 'unknown'
 config.summary = 'KDE Frameworks 5'
 config.description = 'KDE Frameworks are addons and useful extensions to Qt'
@@ -337,10 +337,10 @@ config.grade = 'stable'
 config.base = 'core20'
 
 slot = SnapcraftConfig::Slot.new
-slot.content = 'kde-frameworks-5-qt-5-15-core20-all'
+slot.content = 'kde-frameworks-5-qt-5-15-3-core20-all'
 slot.interface = 'content'
 slot.read = %w[.]
-config.slots['kde-frameworks-5-qt-5-15-core20-slot'] = slot
+config.slots['kde-frameworks-5-qt-5-15-3-core20-slot'] = slot
 
 package_repo = SnapcraftConfig::PackageRepository.new
 package_repo.type = 'apt'
@@ -383,7 +383,8 @@ parts = %w(extra-cmake-modules kcoreaddons) + # kdesupport/polkit-qt-1
            kdesignerplugin
            ksyntax-highlighting
            krunner kwayland baloo breeze
-           libkdegames)
+           libkdegames
+           kross kdelibs4support)
            # plasma-integration) # extra integration pulls in breeze pulls in kde4/qt4
 parts += %w[qtwebkit qtbase qtdeclarative qtgraphicaleffects qtlocation
             qtmultimedia qtquickcontrols qtquickcontrols2 qtscript qtsensors
@@ -561,7 +562,7 @@ puts File.write('stage-dev.json', JSON.generate(runs + devs))
 
 ### build snap
 
-config.name = 'kde-frameworks-5-qt-5-15-core20-sdk'
+config.name = 'kde-frameworks-5-qt-5-15-3-core20-sdk'
 # We mustn't define the slots in the SDK, it'd confuse snapd on what to
 # autoconnect when both snaps are installed.
 config.slots.clear

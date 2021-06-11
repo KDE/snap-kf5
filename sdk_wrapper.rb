@@ -150,7 +150,7 @@ EOF
 # otherwise we'd break cmake running during the build as the environment
 # for the wrap is not actually valid yet.
 if [ -z "$KF5_SNAP_WRAPPING" ]; then
-  SNAP=/snap/kde-frameworks-5-qt-5-15-core20-sdk/current
+  SNAP=/snap/kde-frameworks-5-qt-5-15-3-core20-sdk/current
   ARCH=x86_64-linux-gnu
 
   # Used by e.g. meinproc to locate XML assets at build-time
@@ -184,8 +184,8 @@ end
 qtchooser_config_dir = '/root/parts/kf5/install/etc/xdg/qtchooser/'
 FileUtils.mkpath(qtchooser_config_dir)
 File.write("#{qtchooser_config_dir}/default.conf", <<-CONF)
-/snap/kde-frameworks-5-qt-5-15-core20-sdk/current/usr/lib/qt5/bin
-/snap/kde-frameworks-5-qt-5-15-core20-sdk/current/usr/lib/x86_64-linux-gnu
+/snap/kde-frameworks-5-qt-5-15-3-core20-sdk/current/usr/lib/qt5/bin
+/snap/kde-frameworks-5-qt-5-15-3-core20-sdk/current/usr/lib/x86_64-linux-gnu
 CONF
 FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/qt5.conf", force: true)
 FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/5.conf", force: true)

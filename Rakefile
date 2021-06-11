@@ -45,8 +45,8 @@ task :snapcraft do
   sh 'pwd'
   sh 'ls'
   sh 'ls ' + Dir.home
-  sh 'ls ' + Dir.home + '/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/'
-  Dir.chdir(Dir.home + '/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/')
+  sh 'ls ' + Dir.home + '/workspace/kde-frameworks-5-qt-5-15-3-core20-release_amd64.snap/'
+  Dir.chdir(Dir.home + '/workspace/kde-frameworks-5-qt-5-15-3-core20-release_amd64.snap/')
   sh 'sudo chown jenkins-slave /var/snap/lxd/common/lxd/unix.socket'
   sh 'lxd init --auto'
   sh 'snapcraft --version'
@@ -66,18 +66,18 @@ task :snapcraft do
     sh 'echo -- building sdk--'
     sh 'snapcraft clean --use-lxd || true'
     sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
-    sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/sdk_wrapper.sh snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
-    sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-core20-release_amd64.snap/sdk_wrapper.rb snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
+    sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-3-core20-release_amd64.snap/sdk_wrapper.sh snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
+    sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-3-core20-release_amd64.snap/sdk_wrapper.rb snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
     sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
   end
 
   # Generate metadata so we can manipulate our app snaps from including
   # packages which are already in the sdk.
-  sh 'lxc start snapcraft-kde-frameworks-5-qt-5-15-core20-sdk'
+  sh 'lxc start snapcraft-kde-frameworks-5-qt-5-15-3-core20-sdk'
   sh 'mkdir kf5'
   sh 'mkdir kf5-dev'
-  sh 'lxc file pull --recursive snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/root/parts/kf5/stage_packages/ kf5/'
-  sh 'lxc file pull --recursive snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/root/parts/kf5-dev/stage_packages/ kf5-dev/'
+  sh 'lxc file pull --recursive snapcraft-kde-frameworks-5-qt-5-15-3-core20-sdk/root/parts/kf5/stage_packages/ kf5/'
+  sh 'lxc file pull --recursive snapcraft-kde-frameworks-5-qt-5-15-3-core20-sdk/root/parts/kf5-dev/stage_packages/ kf5-dev/'
   ruby 'extend_content.rb'
 end
 

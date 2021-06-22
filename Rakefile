@@ -51,7 +51,7 @@ task :snapcraft do
   sh 'lxd init --auto'
   sh 'snapcraft --version'
   sh 'snapcraft clean --use-lxd || true'
-  sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
+  sh 'snapcraft --debug --use-lxd'
 
   # And now build the sdk build-snap (dumps stage into a separate snap)
   # FileUtils.cp('build.snapcraft.yaml', 'snapcraft.yaml')
@@ -65,10 +65,10 @@ task :snapcraft do
     #File.write('/usr/lib/python3/dist-packages/snapcraft/internal/pluginhandler/_patchelf.py', data)
     sh 'echo -- building sdk--'
     sh 'snapcraft clean --use-lxd || true'
-    sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
+    sh 'snapcraft --debug --use-lxd'
     sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-3-core20-release_amd64.snap/sdk_wrapper.sh snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
     sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-qt-5-15-3-core20-release_amd64.snap/sdk_wrapper.rb snapcraft-kde-frameworks-5-qt-5-15-core20-sdk/'
-    sh 'snapcraft --enable-experimental-package-repositories --debug --use-lxd'
+    sh 'snapcraft --debug --use-lxd'
   end
 
   # Generate metadata so we can manipulate our app snaps from including

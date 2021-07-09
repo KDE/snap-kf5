@@ -567,7 +567,7 @@ config.name = 'kde-frameworks-5-qt-5-15-3-core20-sdk'
 # autoconnect when both snaps are installed.
 config.slots.clear
 
-config.parts['kf5'].prime = nil
+config.parts['kf5'].prime = ['-usr/lib/*/qt5/bin/qmake']
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
 config.parts['kf5'].override_build = "pwd; /sdk_wrapper.sh\n/sdk_wrapper.rb kf5\nsnapcraftctl build"
 

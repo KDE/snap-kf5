@@ -506,6 +506,7 @@ part.stage = (part.stage + %w[
   -usr/lib/qt5/bin/qdoc
   -usr/lib/qt5/bin/qhelpgenerator
   -usr/lib/qt5/bin/qtattributionsscanner
+  -usr/lib/*/qt5/bin/qmake
 ]).uniq
 config.parts['kf5'] = part
 

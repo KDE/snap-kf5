@@ -319,6 +319,7 @@ class SnapcraftConfig
   attr_accessor :package_repositories
   attr_accessor :parts
   attr_accessor :base
+  attr_accessor :compression
 
   def initialize
     @parts = {}
@@ -335,6 +336,7 @@ config.description = 'KDE Frameworks are addons and useful extensions to Qt'
 config.confinement = 'strict'
 config.grade = 'stable'
 config.base = 'core20'
+config.compression = 'lzo'
 
 slot = SnapcraftConfig::Slot.new
 slot.content = 'kde-frameworks-5-qt-5-15-3-core20-all'

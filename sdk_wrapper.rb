@@ -27,6 +27,10 @@ require 'tty/command'
 
 ENV['KF5_SNAP_WRAPPING'] = '1'
 
+# used to find library paths for the arch we are building on
+gnu_arch_map = {amd64: "x86_64", arm64: "aarch64"}
+gnu_arch = gnu_arch_map[ENV["SNAP_ARCH"].to_sym]
+
 # qmlcachegen for reasons beyond me is not actually an imported target but
 # set as a variable and then directly passed into execute_process.
 STATIC_EXES = %w[
@@ -37,11 +41,11 @@ STATIC_EXES = %w[
 # sequence and direct it to some wrapper script which hardcodes paths. Don't
 # use this and instead force symlinks to go to the correct helper.
 SHODDY_SYMLINK_MANGLER = {
-  'x86_64-linux-gnu-qmake' => 'qmake'
+  "#{gnu_arch}-linux-gnu-qmake" => 'qmake'
 }
 
 configs = []
-Dir.chdir("/root/parts/#{ARGV[0]}/install/usr/lib/x86_64-linux-gnu/cmake") do
+Dir.chdir("/root/parts/#{ARGV[0]}/install/usr/lib/#{gnu_arch}-linux-gnu/cmake") do
   Dir.glob('*/*Config.cmake').each do |config_file|
     config = config_file.split('/')[-1]
     configs << config.sub('Config.cmake', '')
@@ -151,7 +155,7 @@ EOF
 # for the wrap is not actually valid yet.
 if [ -z "$KF5_SNAP_WRAPPING" ]; then
   SNAP=/snap/kde-frameworks-5-qt-5-15-3-core20-sdk/current
-  ARCH=x86_64-linux-gnu
+  ARCH=#{gnu_arch}-linux-gnu
 
   # Used by e.g. meinproc to locate XML assets at build-time
   export XDG_DATA_DIRS=$SNAP/usr/local/share:$SNAP/usr/share:$XDG_DATA_DIRS:/usr/share:/usr/local/share
@@ -185,14 +189,14 @@ qtchooser_config_dir = '/root/parts/kf5/install/etc/xdg/qtchooser/'
 FileUtils.mkpath(qtchooser_config_dir)
 File.write("#{qtchooser_config_dir}/default.conf", <<-CONF)
 /snap/kde-frameworks-5-qt-5-15-3-core20-sdk/current/usr/lib/qt5/bin
-/snap/kde-frameworks-5-qt-5-15-3-core20-sdk/current/usr/lib/x86_64-linux-gnu
+/snap/kde-frameworks-5-qt-5-15-3-core20-sdk/current/usr/lib/#{gnu_arch}-linux-gnu
 CONF
 FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/qt5.conf", force: true)
 FileUtils.ln_s('default.conf', "#{qtchooser_config_dir}/5.conf", force: true)
 FileUtils.mkpath('/etc/xdg/qtchooser/', verbose: true)
 File.write("/etc/xdg/qtchooser/default.conf", <<-CONF)
 /usr/lib/qt5/bin
-/usr/lib/x86_64-linux-gnu
+/usr/lib/#{gnu_arch}-linux-gnu
 CONF
 FileUtils.ln_s('default.conf', "/etc/xdg/qtchooser/qt5.conf", force: true)
 FileUtils.ln_s('default.conf', "/etc/xdg/qtchooser/5.conf", force: true)

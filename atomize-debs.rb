@@ -430,6 +430,9 @@ runs += %w[gstreamer1.0-x gstreamer1.0-plugins-base
 # For on-demand locale generation we need the raw data to generate locales from.
 runs += %w[locales libc-bin]
 runs += %w[gettext libdrm-dev]
+# VA-API drivers for HW-accelerated video decoding
+runs += %w[mesa-va-drivers] 
+runs << { "on amd64" => %w[i965-va-driver intel-media-va-driver] }
 
 kf5_version = nil
 qt5_version = nil

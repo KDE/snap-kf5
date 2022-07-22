@@ -550,6 +550,7 @@ integration.build_packages = %w(
                libqt5waylandclient5-dev
                libwayland-dev
                breeze-dev
+               plasma-wayland-protocols
 )
 integration.cmake_parameters = %w(
   -DKDE_INSTALL_USE_QT_SYS_PATHS=ON

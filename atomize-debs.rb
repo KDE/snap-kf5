@@ -546,6 +546,7 @@ integration.build_packages = %w(
                libxcursor-dev
                qtbase5-dev
                qtbase5-private-dev
+               qtwayland5-dev-tools
                breeze-dev
 )
 integration.cmake_parameters = %w(

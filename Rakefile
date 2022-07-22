@@ -65,9 +65,9 @@ task :snapcraft do
     #File.write('/usr/lib/python3/dist-packages/snapcraft/internal/pluginhandler/_patchelf.py', data)
     sh 'echo -- building sdk--'
     sh 'snapcraft clean --use-lxd || true'
-    sh 'snapcraft --debug --use-lxd'
-    sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-96-qt-5-15-5-core20-release_amd64.snap/sdk_wrapper.sh snapcraft-kde-frameworks-5-96-qt-5-15-5-core20-sdk/'
-    sh 'lxc file push /home/jenkins-slave/workspace/kde-frameworks-5-96-qt-5-15-5-core20-release_amd64.snap/sdk_wrapper.rb snapcraft-kde-frameworks-5-96-qt-5-15-5-core20-sdk/'
+    sh 'mkdir sdk-wrapper'
+    sh 'cp /home/jenkins-slave/workspace/kde-frameworks-5-96-qt-5-15-5-core20-release_amd64.snap/sdk_wrapper.sh sdk-wrapper/'
+    sh 'cp /home/jenkins-slave/workspace/kde-frameworks-5-96-qt-5-15-5-core20-release_amd64.snap/sdk_wrapper.rb sdk-wrapper/'
     sh 'snapcraft --debug --use-lxd'
     sh 'echo -- finished building sdk--'
   end

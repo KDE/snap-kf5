@@ -578,13 +578,20 @@ config.name = 'kde-frameworks-5-96-qt-5-15-5-core20-sdk'
 # autoconnect when both snaps are installed.
 config.slots.clear
 
+sdk_wrapper = SnapcraftConfig::Part.new
+sdk_wrapper.plugin = 'dump'
+sdk_wrapper.source = 'sdk-wrapper/'
+sdk_wrapper.prime = ['-*']
+config.parts['sdk-wrapper'] = sdk_wrapper
+
 config.parts['kf5'].prime = ['-usr/lib/*/qt5/bin/qmake']
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
-config.parts['kf5'].override_build = "pwd; /sdk_wrapper.sh\n/sdk_wrapper.rb kf5\nsnapcraftctl build"
+config.parts['kf5'].override_build = "pwd; $SNAPCRAFT_STAGE/sdk_wrapper.sh\n$SNAPCRAFT_STAGE/sdk_wrapper.rb kf5\nsnapcraftctl build"
+config.parts['kf5'].after = 'sdk-wrapper'
 
 config.parts['kf5-dev'].prime = nil
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
-config.parts['kf5-dev'].override_build = "pwd; /sdk_wrapper.rb kf5-dev\nsnapcraftctl build"
+config.parts['kf5-dev'].override_build = "pwd; $SNAPCRAFT_STAGE/sdk_wrapper.rb kf5-dev\nsnapcraftctl build"
 
 config.parts['plasma-integration'].prime = nil
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH

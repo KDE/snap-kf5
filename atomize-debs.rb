@@ -547,6 +547,8 @@ integration.build_packages = %w(
                qtbase5-dev
                qtbase5-private-dev
                qtwayland5-dev-tools
+               libqt5waylandclient5-dev
+               libwayland-dev
                breeze-dev
 )
 integration.cmake_parameters = %w(

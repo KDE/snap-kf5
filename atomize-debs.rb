@@ -419,11 +419,11 @@ parts = [nil] + parts
 # though they are not strictly frameworks.
 # Notable exception: ssl (multiple versions available)
 devs = %w[libxml2-dev libxslt-dev liblcms2-dev libpng-dev libexiv2-dev
-          libjpeg-dev libglib2.0-0]
+          libjpeg-dev]
 # make sure we have gettext available for l10n use
 devs += %w[gettext]
 # mesa-utils-extra - es2_info useful to debug GL problems.
-runs = %w[mesa-utils-extra freeglut3-dev]
+runs = %w[mesa-utils-extra freeglut3-dev libglib2.0-0]
 # GStreamer plugins
 runs += %w[gstreamer1.0-x gstreamer1.0-plugins-base
            gstreamer1.0-pulseaudio gstreamer1.0-plugins-good]

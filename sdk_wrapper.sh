@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/bash -x
 
-sudo apt install -y ruby
-sudo gem install tty
+if [ -n "$http_proxy" ]; then
+  gem install --http-proxy="$http_proxy" tty
+else
+  gem install tty
+fi

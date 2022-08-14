@@ -586,6 +586,7 @@ config.parts['sdk-wrapper'] = sdk_wrapper
 
 config.parts['kf5'].prime = ['-usr/lib/*/qt5/bin/qmake']
 # wrap the exectuable cmake targets to have a suitable LD_LIBRARY_PATH
+config.parts['kf5'].build_packages = ['ruby']
 config.parts['kf5'].override_build = "pwd; $SNAPCRAFT_STAGE/sdk_wrapper.sh\n$SNAPCRAFT_STAGE/sdk_wrapper.rb kf5\nsnapcraftctl build"
 config.parts['kf5'].after = ['sdk-wrapper']
 
